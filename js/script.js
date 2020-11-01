@@ -61,6 +61,9 @@ loadData().then(data => {
   }
   piano();
 
+  d3.json('./data/piano_history.json').then(treeData => {
+    let tree = new Tree(treeData);
+  })
 });
 
 /**

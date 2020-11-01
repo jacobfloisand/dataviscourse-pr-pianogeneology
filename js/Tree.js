@@ -6,11 +6,10 @@ class Tree {
      * note: Node objects will have a name, parentNode, parentName, children, level, and position
      * @param {json[]} json - array of json objects with name and parent fields
      */
-    constructor(json) {
-      console.log('in Tree constructor');
+    constructor (json) {
         //Create a list nodes. Save node name and parent in each node.
         this.nodeArray = []
-        for(let currentJson of json){
+        for (let currentJson of json) {
             let testNode = new Node(currentJson.name, currentJson.parent);
             this.nodeArray.push(testNode);
         }
@@ -23,13 +22,13 @@ class Tree {
     buildTree() {
         // note: in this function you will assign positions and levels by making calls to assignPosition() and assignLevel()
         //add parentNode and children to each Node.
-        for(let currentNode of this.nodeArray){
-            if(currentNode.parent === 'root'){
+        for (let currentNode of this.nodeArray) {
+            if (currentNode.parent === 'root') {
                 currentNode.parentNode = null;
             } else {
-                for(let possibleParent of this.nodeArray){
+                for (let possibleParent of this.nodeArray) {
                     //console.log("currentNode.parent: " + currentNode.parent + "possibleParent.name: " + possibleParent.name);
-                    if(currentNode.parentName == possibleParent.name){
+                    if (currentNode.parentName == possibleParent.name) {
                         currentNode.parentNode = possibleParent;
                         possibleParent.children.push(currentNode);
 
@@ -51,7 +50,7 @@ class Tree {
      */
     assignLevel(node, level) {
         node.level = level;
-        for(let childNode of node.children){
+        for (let childNode of node.children) {
             this.assignLevel(childNode, level + 1);
         }
 
@@ -65,7 +64,7 @@ class Tree {
         let originalPosition = position;
         position = position - 1;
         //let childPosition = 0
-        for(let childNode of node.children){
+        for (let childNode of node.children) {
             position = position + 1;
             position = this.assignPosition(childNode, position);
 
@@ -78,7 +77,7 @@ class Tree {
      */
     renderTree() {
         //let svgHTML = document.createElement('svg');
-        let svgHTML = document.createElementNS("http://www.w3.org/2000/svg","svg");
+        let svgHTML = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svgHTML.setAttribute("width", "1200");
         svgHTML.setAttribute("height", "1200");
         let bodyHTML = document.getElementsByTagName("body")[0];
@@ -90,16 +89,16 @@ class Tree {
             .data(this.nodeArray)
             .enter().append("line")
             .attr("y1", (d, i) => d.position * 120 + 50)
-            .attr("y2", function(d,i){
-                if(d.parentNode === null){
+            .attr("y2", function (d, i) {
+                if (d.parentNode === null) {
                     console.log('parent is null');
                     return 50;
                 }
                 return d.parentNode.position * 120 + 50;
             })
             .attr("x1", (d, i) => d.level * 120 + 50)
-            .attr("x2", function(d, i){
-                if(d.parentNode === null){
+            .attr("x2", function (d, i) {
+                if (d.parentNode === null) {
                     return 50;
                 }
                 return d.parentNode.level * 120 + 50;
@@ -109,17 +108,17 @@ class Tree {
             .data(this.nodeArray)
             .enter().append("g")
             .attr("class", "nodeGroup")
-            //.attr("tranform", ((d, i) => "translate(" + (d.level * 120 + 50) + ", " + (d.position * 120 + 50) + ")"));  // scale(1,-1)")); //tranlate(150, 150)
-            //.attr("tranform", "translate(200 200) rotate(90)");
+        //.attr("tranform", ((d, i) => "translate(" + (d.level * 120 + 50) + ", " + (d.position * 120 + 50) + ")"));  // scale(1,-1)")); //tranlate(150, 150)
+        //.attr("tranform", "translate(200 200) rotate(90)");
 
-            g.append("circle")
+        g.append("circle")
             .data(this.nodeArray)
             //.enter().append("circle")
             .attr("cy", (d, i) => d.position * 120 + 50)
             .attr("cx", (d, i) => d.level * 120 + 50)
             .attr("r", 60);
 
-            g.append("text")
+        g.append("text")
             .data(this.nodeArray)
             //.enter().append("text")
             .text((d, i) => d.name)
@@ -130,15 +129,15 @@ class Tree {
 
 }
 
-function piano(){
+function piano() {
     let pianokeys = Array.from(Array(50).keys());
     let piano = d3.select('#piano').selectAll('rect')
-    .data(pianokeys)
-    .join('rect')
-    .attr('x', d => d*20)
-    .attr('width', d => d*20 + 20)
-    .attr('height', 50)
-    .style('fill', 'white')
-    .style('stroke', 'black');
-  }
-  piano();
+        .data(pianokeys)
+        .join('rect')
+        .attr('x', d => d * 20)
+        .attr('width', d => d * 20 + 20)
+        .attr('height', 50)
+        .style('fill', 'white')
+        .style('stroke', 'black');
+}
+piano();

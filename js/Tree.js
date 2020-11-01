@@ -7,6 +7,7 @@ class Tree {
      * @param {json[]} json - array of json objects with name and parent fields
      */
     constructor(json) {
+      console.log('in Tree constructor');
         //Create a list nodes. Save node name and parent in each node.
         this.nodeArray = []
         for(let currentJson of json){
@@ -31,7 +32,7 @@ class Tree {
                     if(currentNode.parentName == possibleParent.name){
                         currentNode.parentNode = possibleParent;
                         possibleParent.children.push(currentNode);
-                        
+
                     }
 
                 }
@@ -53,7 +54,7 @@ class Tree {
         for(let childNode of node.children){
             this.assignLevel(childNode, level + 1);
         }
-        
+
     }
 
     /**
@@ -67,7 +68,7 @@ class Tree {
         for(let childNode of node.children){
             position = position + 1;
             position = this.assignPosition(childNode, position);
-            
+
         }
         return Math.max(position, originalPosition);
     }
@@ -95,7 +96,7 @@ class Tree {
                     return 50;
                 }
                 return d.parentNode.position * 120 + 50;
-            }) 
+            })
             .attr("x1", (d, i) => d.level * 120 + 50)
             .attr("x2", function(d, i){
                 if(d.parentNode === null){
@@ -103,13 +104,13 @@ class Tree {
                 }
                 return d.parentNode.level * 120 + 50;
             });
-            
+
         let g = svg.selectAll("g")
             .data(this.nodeArray)
             .enter().append("g")
             .attr("class", "nodeGroup")
             //.attr("tranform", ((d, i) => "translate(" + (d.level * 120 + 50) + ", " + (d.position * 120 + 50) + ")"));  // scale(1,-1)")); //tranlate(150, 150)
-            //.attr("tranform", "translate(200 200) rotate(90)"); 
+            //.attr("tranform", "translate(200 200) rotate(90)");
 
             g.append("circle")
             .data(this.nodeArray)

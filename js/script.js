@@ -1,5 +1,6 @@
 preGrouped = d3.json('.data/words.json').then(data => {
 console.log(data);
+console.log('hello world');
 });
 
 function piano(){

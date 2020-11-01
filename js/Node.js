@@ -37,6 +37,4 @@ class Node {
     addChild(childNode) {
         this.children.push(childNode);
     }
-
-
 }

@@ -2,8 +2,6 @@ loadData().then(data => {
 
   function piano() {
 
-
-
     let pianokeys = Array.from(Array(98).keys());
     let pianos = d3.select('#piano').selectAll('rect')
       .data(pianokeys)
@@ -61,8 +59,11 @@ loadData().then(data => {
   }
   piano();
 
+  //Load tree data
   d3.json('./data/piano_history.json').then(treeData => {
     let tree = new Tree(treeData);
+    tree.buildTree();
+    // tree.renderTree();
   })
 });
 

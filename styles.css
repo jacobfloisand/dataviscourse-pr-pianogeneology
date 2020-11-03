@@ -31,3 +31,20 @@ span{
 .hovered{
     fill: skyblue;
 }
+
+.selected{
+	stroke-width: 8;
+	stroke: #3366CC;
+}
+
+.tree-rect{
+    stroke: black;
+}
+
+line {
+	stroke: black;
+}
+
+.tree-chart-label {
+	pointer-events:none;
+}

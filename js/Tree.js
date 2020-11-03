@@ -11,8 +11,11 @@ class Tree {
         this.nodeArray = []
         for (let currentJson of json) {
             let testNode = new Node(currentJson.name, currentJson.parent);
+            testNode.dataAvailable = currentJson.dataAvailable;
+            testNode.isSelected = "false";
             this.nodeArray.push(testNode);
         }
+        this.currentlySelectedIndex = 0;
         console.log(this.nodeArray);
     }
 
@@ -80,9 +83,10 @@ class Tree {
         let svgHTML = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svgHTML.setAttribute("width", "1200");
         svgHTML.setAttribute("height", "1200");
+        svgHTML.setAttribute("id", "tree-chart")
         let bodyHTML = document.getElementsByTagName("body")[0];
         bodyHTML.appendChild(svgHTML);
-        let svg = d3.select("svg");
+        let svg = d3.select("#tree-chart");
 
         // Lines
         svg.selectAll("line")
@@ -96,12 +100,12 @@ class Tree {
                 }
                 return d.parentNode.position * 120 + 50;
             })
-            .attr("x1", (d, i) => d.level * 120 + 50)
+            .attr("x1", (d, i) => d.level * 220 + 50)
             .attr("x2", function (d, i) {
                 if (d.parentNode === null) {
                     return 50;
                 }
-                return d.parentNode.level * 120 + 50;
+                return d.parentNode.level * 220 + 50;
             });
 
         let g = svg.selectAll("g")
@@ -110,21 +114,70 @@ class Tree {
             .attr("class", "nodeGroup")
         //.attr("tranform", ((d, i) => "translate(" + (d.level * 120 + 50) + ", " + (d.position * 120 + 50) + ")"));  // scale(1,-1)")); //tranlate(150, 150)
         //.attr("tranform", "translate(200 200) rotate(90)");
-
-        g.append("circle")
+            
+        g.append("rect")
             .data(this.nodeArray)
-            //.enter().append("circle")
-            .attr("cy", (d, i) => d.position * 120 + 50)
-            .attr("cx", (d, i) => d.level * 120 + 50)
-            .attr("r", 60);
+            .attr("y", (d, i) => d.position * 120 + 25)
+            .attr("x", (d, i) => d.level * 220 + 50)
+            .attr("width", 180)
+            .attr("height", 60)
+            .attr('class', 'tree-rect')
+            .attr('fill', function(d){
+                    if(d.dataAvailable == "true"){
+                        console.log('data available');
+                        return 'white';
+                    } else {
+                        return 'lightgrey';
+                    }
+            })
+            .on('mouseover', (d, i, g) => {
+                if(d.dataAvailable == "true"){
+                    d3.select(g[i]).classed('hovered', true);
+                }
+              })
+              // .on('click', playSound('coin'))
+              .on('mouseout', (d, i, g) => {
+                if(d.dataAvailable == "true"){
+                    d3.select(g[i]).classed('hovered', false);
+                }
+              })
+              .on("click", (d, i, g) => {
+                  if(d.dataAvailable == "true"){
+                        d3.select(g[this.currentlySelectedIndex]).classed('selected', false);
+                        d3.select(g[this.currentlySelectedIndex]).classed('tree-rect', true);
+                        d3.select(g[i]).classed('tree-rect', false);
+                        d3.select(g[i]).classed('selected', true);
+                        this.currentlySelectedIndex = i;
+                  }
+              });
 
         g.append("text")
             .data(this.nodeArray)
-            //.enter().append("text")
-            .text((d, i) => d.name)
+            .text((d, i) => "\u00A0\u00A0\u00A0" + d.name)
             .attr("y", (d, i) => d.position * 120 + 50)
-            .attr("x", (d, i) => d.level * 120 + 50)
-            .attr("class", "label");
+            .attr("x", (d, i) => d.level * 220 + 50)
+            .attr("class", "tree-chart-label")
+            .on('mouseover', (d, i, g) => {
+                if(d.dataAvailable == "true"){
+                    d3.select(g[i]).classed('hovered', true);
+                }
+              })
+              // .on('click', playSound('coin'))
+              .on('mouseout', (d, i, g) => {
+                if(d.dataAvailable == "true"){
+                    d3.select(g[i]).classed('hovered', false);
+                }
+              })
+              .on("click", (d, i, g) => {
+                if(d.dataAvailable == "true"){
+                    d3.select(g[this.currentlySelectedIndex]).classed('selected', false);
+                    d3.select(g[this.currentlySelectedIndex]).classed('tree-rect', true);
+                    d3.select(g[i]).classed('tree-rect', false);
+                      d3.select(g[i]).classed('selected', true);
+                      this.currentlySelectedIndex = i;
+                }
+            });
+            
     }
 
 }

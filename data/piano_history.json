@@ -2,7 +2,7 @@
     {
       "name": "Monochord",
       "parent": "root",
-      "dataAvailable" : "true"
+      "dataAvailable" : "false"
     },
     {
       "name": "Polychord without bridge",
@@ -17,7 +17,7 @@
     {
       "name": "Dulcimer",
       "parent": "Polychord without bridge",
-      "dataAvailable" : "true"
+      "dataAvailable" : "false"
     },
     {
       "name": "Psalterium",
@@ -42,7 +42,7 @@
     {
       "name": "Clavichord",
       "parent": "Polychord with bridge",
-      "dataAvailable" : "true"
+      "dataAvailable" : "false"
     },
     {
       "name": "Fortepiano (horizontal)",
@@ -52,7 +52,7 @@
     {
       "name": "Fortepiano (horizontal)",
       "parent": "Clavichord",
-      "dataAvailable" : "true"
+      "dataAvailable" : "false"
     },
     {
       "name": "Square piano",
@@ -61,6 +61,21 @@
     },
     {
       "name": "Modern upright piano",
+      "parent": "Fortepiano (horizontal)",
+      "dataAvailable" : "true"
+    },
+    {
+      "name": "Grand Piano",
+      "parent": "Fortepiano (horizontal)",
+      "dataAvailable" : "true"
+    },
+    {
+      "name": "Electric Piano",
+      "parent": "Fortepiano (horizontal)",
+      "dataAvailable" : "true"
+    },
+    {
+      "name": "Player Piano",
       "parent": "Fortepiano (horizontal)",
       "dataAvailable" : "true"
     }

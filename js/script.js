@@ -56,6 +56,20 @@ loadData().then(data => {
       .style('stroke', 'black')
       .attr('d', lineFn(purchases));
 
+    let pianoScaleX = d3.scaleLinear()
+                        .domain([1900, 2007])
+                        .range([0, 1200]);
+
+    let pianoScaleY = d3.scaleLinear()
+                        .domain([0, 250000])
+                        .range([245, 0]);
+
+    let xAxis = d3.axisBottom().scale(pianoScaleX);
+    d3.select('#piano-viz').append('g').attr("transform", "translate(50, 250)").call(xAxis);
+
+    let yAxis = d3.axisLeft().scale(pianoScaleY).ticks(5);
+    d3.select('#piano-viz').append('g').attr("transform", "translate(50, 5)").call(yAxis);
+
   }
   piano();
 

@@ -20,7 +20,7 @@ function piano(data) {
 
   // let blackkeys = Array.from(Array(50).keys());
   let blackkeys = [0, 1, 2, 4, 5, 7, 8, 9, 11, 12, 14, 15, 16, 18, 19, 21, 22, 23, 25, 26, 28, 29, 30, 32, 33, 35, 36, 37, 39, 40, 42, 43, 44, 46,
-    47, 49, 50, 51, 53, 54, 56, 57, 58, 60, 61, 63, 64, 65, 67, 68, 70, 71, 72, 74, 75, 77, 78, 79, 81, 82, 84, 85, 86, 88, 89, 91, 92, 93, 95, 96, 98, 99, 100];
+    47, 49, 50, 51, 53, 54, 56, 57, 58, 60, 61, 63, 64, 65, 67, 68, 70, 71, 72, 74, 75, 77, 78, 79, 81, 82, 84, 85, 86, 88, 89, 91, 92, 93, 95, 96, 98];
 
   let blacks = d3.select('#blackkeys').selectAll('rect')
     .data(blackkeys)
@@ -78,18 +78,16 @@ let pianoScaleY = d3.scaleLinear()
     .style('fill', 'white')
     .style('stroke', 'black')
     .attr('d', lineFn(data));
-/*
-  d3.select('#curve').append('path')
-    .style('fill', 'white')
-    .style('stroke', 'white')
-    .attr('d', lineFn(whiteSpace));
-    */
+
+    //Axis labels.
+    d3.select('#piano-viz').append('text').text('Year').style('stroke', 'black').attr('x', 600).attr('y', 285);
+    d3.select('#piano-viz').append('text').text('Number Sold').style('stroke', 'black').attr('transform', 'translate(1275,170)rotate(270)');
 
   let xAxis = d3.axisBottom().scale(pianoScaleX);
-  d3.select('#piano-viz').append('g').attr("transform", "translate(50, 250)").call(xAxis);
+  d3.select('#piano-viz').append('g').attr("transform", "translate(10, 250)").call(xAxis);
 
-  let yAxis = d3.axisLeft().scale(pianoScaleY).ticks(5);
-  d3.select('#piano-viz').append('g').attr("transform", "translate(50, 5)").call(yAxis);
+  let yAxis = d3.axisRight().scale(pianoScaleY).ticks(5);
+  d3.select('#piano-viz').append('g').attr("transform", "translate(1210, 5)").call(yAxis);
 
 }
 

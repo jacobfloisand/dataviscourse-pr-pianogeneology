@@ -1,21 +1,21 @@
 var sounds = {
-  "dead": {
-    url: "sounds/dead.wav"
+  "clavichord": {
+    url: "sounds/Clavichord.mp3"
   },
-  "smash": {
-    url: "sounds/smash.mp3",
+  "harpsichord": {
+    url: "sounds/harpsichord.mp3",
   },
-  "ping": {
-    url: "sounds/ping.mp3"
+  "monochord": {
+    url: "sounds/Monochord.mp3"
   },
-  "bump": {
-    url: "sounds/bump.mp3"
+  "psalterium": {
+    url: "sounds/psalterium.mp3"
   },
-  "jump": {
-    url: "sounds/jump.wav"
+  "electric": {
+    url: "sounds/electric_piano.mp3"
   },
-  "coin": {
-    url: "sounds/notes/song12._7900.midi"
+  "moonlight": {
+    url: "sounds/Moonlight_Sonata.mp3"
   }
 };
 

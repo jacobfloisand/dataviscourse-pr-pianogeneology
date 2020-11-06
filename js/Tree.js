@@ -148,6 +148,8 @@ class Tree {
                         d3.select(g[i]).classed('tree-rect', false);
                         d3.select(g[i]).classed('selected', true);
                         this.currentlySelectedIndex = i;
+                        console.log(this.nodeArray[i]);
+                        this.getData(this.nodeArray[i].name);
                   }
               });
 
@@ -173,11 +175,43 @@ class Tree {
                     d3.select(g[this.currentlySelectedIndex]).classed('selected', false);
                     d3.select(g[this.currentlySelectedIndex]).classed('tree-rect', true);
                     d3.select(g[i]).classed('tree-rect', false);
-                      d3.select(g[i]).classed('selected', true);
-                      this.currentlySelectedIndex = i;
+                    d3.select(g[i]).classed('selected', true);
+                    this.currentlySelectedIndex = i;
+                    console.log(this.nodeArray[i]);
+                    this.getData(this.nodeArray[i].name);
                 }
             });
             
+    }
+
+    getData(pianoName){
+        let formattedName = '';
+        if(pianoName == "Modern upright piano"){
+            formattedName = 'VERTICAL PIANOS';
+        }
+        if(pianoName == "Grand Piano"){
+            formattedName = 'GRAND PIANOS';
+        }
+        if(pianoName == "Electric Piano"){
+            formattedName = 'ELECTRONIC';
+        }
+        if(pianoName == "Player Piano"){
+            formattedName = 'PNEUMATIC PLAYERS';
+        }
+        d3.csv('data/piano_sales.csv').then(d => {
+            console.log(d);
+            let mapped = d.map(g => {
+                if(g[formattedName] == '' || g[formattedName] == '(3 Months)'){
+                    return null;
+                }
+                return {x:parseInt(g['YEAR']), y:parseInt(g[formattedName].replace(/,/g, ''))};
+              });
+              console.log('finished mapping');
+              mapped = mapped.filter(function (el) {
+                return el != null;
+              });
+              piano(mapped);
+          });
     }
 
 }

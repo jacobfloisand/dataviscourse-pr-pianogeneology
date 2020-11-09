@@ -198,6 +198,11 @@ class Tree {
         if(pianoName == "Player Piano"){
             formattedName = 'PNEUMATIC PLAYERS';
         }
+        console.log('formatted name is: ' + formattedName);
+        if(formattedName == ''){
+            pianoData([], pianoName);
+            return;
+        }
         d3.csv('data/piano_sales.csv').then(d => {
             console.log(d);
             let mapped = d.map(g => {
@@ -210,7 +215,7 @@ class Tree {
               mapped = mapped.filter(function (el) {
                 return el != null;
               });
-              piano(mapped);
+              pianoData(mapped, pianoName);
           });
     }
 

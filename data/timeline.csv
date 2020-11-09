@@ -1,23 +1,25 @@
-Year,Text
-500 BC,"Hammered dulcimer becomes the first widely used stringed musical instrument, and was a first precursor of Piano. Its structure of paired strings was very similar to one of piano. It was used in Middle East, Southwest Asia, China, Greece and Rome."
-1400 AD,Invention of �clavichord� by the Italian musician and luthier Giovanni Spinette. Wooden form of clavichord will alter be adapted into piano.
-1521,Italian inventor Hieronymus Bononiensis created first �harpsichord� with four octaves. This instrument was recorded to have very weak sound and was used rarely.
-1700,"Birth of first instrument that we would today call a piano. This invention was made by Italian Bartolomeo Cristofori, who named this instrument �pianoforte�. Relatively cheap price enabled this piano to become first instrument of its type to be widely adopted in homes of Italian nobility and royalty."
-1720,The oldest surviving model of original Cristofori�s pianoforte design.
-1766,English engineer and musician Johann Zumpe begins first large-scale manufacture of sturdy and lightweight pianos in England.
-1771,"Johann Zumpe�s design of piano was expanded greatly by English inventor John Broadwood, who added more octaves to cover treble and bass, added pedal and strings were much more robust and lauder."
-1801,"Famous classical music composer Ludwig von Beethoven created Moonlight Sonata, one of the most popular piano compositions of all time."
-1807,"Piano got a new shape of a tall box, a �Cabinet piano�."
-1808,"Inventor Stbastien Erad created first piano with agraffe, which enabled much more aggressive use of keyboards and hammers. This gave ability to famous classical composers such as Beethoven, Mozart, and Liszt to create their most famous works."
-1830,First upright piano was made. This design achieved phenomenal popularity.
-1830,�Pianoforte� instruments finally got their name shortened into much more manageable �piano�.
-1840,Grand pianos started being made in America. Their bodies were created from one-cast iron frame. This design will be popularized by the manufacturer Steinway.
-1853,"Foundation of the Steinway piano company. Regarded as one of the best piano company of all time, it still functions to this day."
-1866,Manhattan�s Steinway Music Hall with 2000 seating places was built to house New York Philharmonic orchestra.
-1891,"Foundation of Carnegie Hall, one of the most famous musical buildings in the world."
-1920,Automatic pianos become very popular. Their use was almost non-existent after invention of radio.
-1930,Upright pianos became much smaller.
-1947,Invention of first electric keyboard in France. Their size and complexity prevented them to become popular all until 1980s.
-1970,"Musical Keyboard was invented by Christopher Donison, this model was used as a great learning tool."
-1980,Electric keyboards started being made in all shapes and sizes. Popularization of pop and electric music popularized them greatly.
-2000,"Electric pianos can be found everywhere, in almost every band."
+Year,Name,Text
+500 BC,Dulcimer,"Hammered dulcimer becomes the first widely used stringed musical instrument, and was a first precursor of Piano. Its structure of paired strings was very similar to one of piano. It was used in Middle East, Southwest Asia, China, Greece and Rome."
+1400 AD,Clavichord,Invention of �clavichord� by the Italian musician and luthier Giovanni Spinette. Wooden form of clavichord will alter be adapted into piano.
+1521,Harpsichord,Italian inventor Hieronymus Bononiensis created first �harpsichord� with four octaves. This instrument was recorded to have very weak sound and was used rarely.
+1700,Fortepiano (horizontal),"Birth of first instrument that we would today call a piano. This invention was made by Italian Bartolomeo Cristofori, who named this instrument �pianoforte�. Relatively cheap price enabled this piano to become first instrument of its type to be widely adopted in homes of Italian nobility and royalty."
+1720,Fortepiano (horizontal),The oldest surviving model of original Cristofori�s pianoforte design.
+1766,Fortepiano (horizontal),English engineer and musician Johann Zumpe begins first large-scale manufacture of sturdy and lightweight pianos in England.
+1771,Fortepiano (horizontal),"Johann Zumpe�s design of piano was expanded greatly by English inventor John Broadwood, who added more octaves to cover treble and bass, added pedal and strings were much more robust and lauder."
+1801,Fortepiano (horizontal),"Famous classical music composer Ludwig von Beethoven created Moonlight Sonata, one of the most popular piano compositions of all time."
+1807,Cabinet piano,"Piano got a new shape of a tall box, a �Cabinet piano�."
+1808,Fortepiano (horizontal),"Inventor Stbastien Erad created first piano with agraffe, which enabled much more aggressive use of keyboards and hammers. This gave ability to famous classical composers such as Beethoven, Mozart, and Liszt to create their most famous works."
+1830,Modern upright piano,First upright piano was made. This design achieved phenomenal popularity.
+1830,Fortepiano (horizontal),�Pianoforte� instruments finally got their name shortened into much more manageable �piano�.
+1840,Grand Piano,Grand pianos started being made in America. Their bodies were created from one-cast iron frame. This design will be popularized by the manufacturer Steinway.
+1853,Fortepiano (horizontal),"Foundation of the Steinway piano company. Regarded as one of the best piano company of all time, it still functions to this day."
+1866,Grand Piano,Manhattan�s Steinway Music Hall with 2000 seating places was built to house New York Philharmonic orchestra.
+1891,Grand Piano,"Foundation of Carnegie Hall, one of the most famous musical buildings in the world."
+1920,Player Piano,Automatic pianos become very popular. Their use was almost non-existent after invention of radio.
+1930,Modern upright piano,Upright pianos became much smaller.
+1947,Electric Piano,Invention of first electric keyboard in France. Their size and complexity prevented them to become popular all until 1980s.
+1970,Electric Piano,"Musical Keyboard was invented by Christopher Donison, this model was used as a great learning tool."
+1980,Electric Piano,Electric keyboards started being made in all shapes and sizes. Popularization of pop and electric music popularized them greatly.
+2000,Electric Piano,"Electric pianos can be found everywhere, in almost every band."
+,,
+,,

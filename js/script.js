@@ -1,4 +1,11 @@
-function piano(data) {
+function pianoData(data, name){
+  let timeline = loadFile('data/timeline.csv').then(timeline => {
+    piano(data, timeline, name);
+  });
+}
+
+function piano(data, timeline, name) {
+  console.log(timeline);
   d3.select('#piano').selectAll('rect').remove();
   let pianokeys = Array.from(Array(100).keys());
   let pianos = d3.select('#piano').selectAll('rect')
@@ -80,21 +87,57 @@ let pianoScaleY = d3.scaleLinear()
     .attr('d', lineFn(data));
 
     //Axis labels.
-    d3.select('#piano-viz').append('text').text('Year').style('stroke', 'black').attr('x', 600).attr('y', 285);
-    d3.select('#piano-viz').append('text').text('Number Sold').style('stroke', 'black').attr('transform', 'translate(1275,170)rotate(270)');
+    d3.select('#x-axis-text').remove();
+    d3.select('#y-axis-text').remove();
+    d3.select('#piano-viz').append('text').attr('id', 'x-axis-text').text('Year').style('stroke', 'black').attr('x', 600).attr('y', 285);
+    d3.select('#piano-viz').append('text').attr('id', 'y-axis-text').text('Number Sold').style('stroke', 'black').attr('transform', 'translate(1275,170)rotate(270)');
 
   let xAxis = d3.axisBottom().scale(pianoScaleX);
-  d3.select('#piano-viz').append('g').attr("transform", "translate(10, 250)").call(xAxis);
+  d3.select('#x-axis').remove();
+  d3.select('#piano-viz').append('g').attr('id', 'x-axis').attr("transform", "translate(10, 250)").call(xAxis);
 
   let yAxis = d3.axisRight().scale(pianoScaleY).ticks(5);
-  d3.select('#piano-viz').append('g').attr("transform", "translate(1210, 5)").call(yAxis);
+  d3.select('#y-axis').remove();
+  d3.select('#piano-viz').append('g').attr('id', 'y-axis').attr("transform", "translate(1210, 5)").call(yAxis);
+
+  d3.select('#timeline-viz').remove();
+  d3.select('#piano-viz').append('g').attr('id', 'timeline-viz').attr('transform', 'translate(10,0)');
+
+  let selection = d3.select('#timeline-viz').selectAll('.event-point')
+    .data(timeline)
+    .join('circle')
+    .attr('class', 'event-point')
+    .attr('cx', d => pianoScaleX(d.Year))
+    .attr('cy', 250)
+    .attr('r', 5)
+    .attr('fill', '#FFA500')
+    .attr('stroke', 'black')
+    .attr('stroke-width', '.5');
+
+    console.log('name is: ' + name);
+
+    selection.filter(d => d.Name != name).remove(); //Gets rid of the dots that belong to different pianos.
+
+    if(data.length == 0){
+      let selection = d3.select('#piano-viz').select('#no-data-text');
+      console.log('selection size is: ' + selection.size());
+      if (selection.size() == 0){
+        d3.select('#piano-viz').append('text')
+        .attr('id', 'no-data-text')
+        .text('No purchase data available')
+        .attr('x', 1000)
+        .attr('y', 285);
+      }      
+    } else {
+      d3.select('#no-data-text').remove();
+    }
 
 }
 
 //loadData().then(data => {
 async function loadTree() {
   
-  piano([]);
+  pianoData([], '');
 
   //Load tree data
   d3.json('./data/piano_history.json').then(treeData => {

@@ -37,17 +37,17 @@
     {
       "name": "Harpsichord",
       "parent": "Psalterium",
-      "dataAvailable" : "false"
+      "dataAvailable" : "true"
     },
     {
       "name": "Clavichord",
       "parent": "Polychord with bridge",
-      "dataAvailable" : "false"
+      "dataAvailable" : "true"
     },
     {
       "name": "Fortepiano (horizontal)",
       "parent": "Clavichord",
-      "dataAvailable" : "false"
+      "dataAvailable" : "true"
     },
     {
       "name": "Square piano",

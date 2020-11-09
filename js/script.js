@@ -79,12 +79,27 @@ let pianoScaleY = d3.scaleLinear()
     // .curve(d3.curveBundle.beta(1))
     .curve(d3.curveCatmullRom.alpha(1));
   // .curve(d3.curveNatural);
-
-  d3.select('#curve').select('path').remove(); //Gets rid of the old line if there was one.
+    let curveSelection = d3.select('#curve').selectAll('path');
+    if(curveSelection.size() == 0){
+      d3.select('#curve').append('path')
+      .style('fill', 'steelblue')
+      .style('stroke', 'black')
+      .attr('d', lineFn(data));
+    } else {
+      curveSelection
+      //.transition()
+      //.duration(1000)
+      .style('fill', 'steelblue')
+      .style('stroke', 'black')
+      .attr('d', lineFn(data));
+    }
+    /*
+  //d3.select('#curve').select('path').remove(); //Gets rid of the old line if there was one.
   let curveLine = d3.select('#curve').append('path')
     .style('fill', 'steelblue')
     .style('stroke', 'black')
     .attr('d', lineFn(data));
+    */
 
     //Axis labels.
     d3.select('#x-axis-text').remove();
@@ -100,12 +115,51 @@ let pianoScaleY = d3.scaleLinear()
   d3.select('#y-axis').remove();
   d3.select('#piano-viz').append('g').attr('id', 'y-axis').attr("transform", "translate(1210, 5)").call(yAxis);
 
-  d3.select('#timeline-viz').remove();
-  d3.select('#piano-viz').append('g').attr('id', 'timeline-viz').attr('transform', 'translate(10,0)');
+  let circles = d3.select('#timeline-viz');
+  if(circles.size() == 0){
+    d3.select('#piano-viz').append('g').attr('id', 'timeline-viz').attr('transform', 'translate(10,0)');
+  }
+  //d3.select('#timeline-viz').remove();
+  
 
-  let selection = d3.select('#timeline-viz').selectAll('.event-point')
-    .data(timeline)
+    let filteredTimeline = [];
+    for(let object of timeline){
+      if(object.Name == name){
+        filteredTimeline.push(object);
+      }
+    }
+    console.log('filtered data is: ' + filteredTimeline);
+
+  let selection = d3.select('#timeline-viz').selectAll('circle').data(filteredTimeline);
+
+  let newCircles = selection.enter().append('circle')
+    .attr('cx', -20)
+    .attr('cy', 250)
+    .attr('r', 5)
+    .attr('fill', '#FFA500')
+    .attr('stroke', 'black')
+    .attr('class', 'event-point')
+    .attr('stroke-width', '.5');
+
+  selection.exit()
+    .transition()
+    .duration(2000)
+    .attr('cx', 1300)
+    .attr('cy', 250)
+    .remove();
+
+  selection = newCircles.merge(selection);
+
+  selection.transition()
+    .duration(2000)
+    .attr('cx', d => pianoScaleX(d.Year))
+    .attr('cy', 250);
+
+    /*
+  //selection.filter(d => d.Name != name).remove(); //Gets rid of the dots that belong to different pianos.
     .join('circle')
+    .transition()
+    .duration(1000)
     .attr('class', 'event-point')
     .attr('cx', d => pianoScaleX(d.Year))
     .attr('cy', 250)
@@ -113,10 +167,11 @@ let pianoScaleY = d3.scaleLinear()
     .attr('fill', '#FFA500')
     .attr('stroke', 'black')
     .attr('stroke-width', '.5');
+    */
 
     console.log('name is: ' + name);
 
-    selection.filter(d => d.Name != name).remove(); //Gets rid of the dots that belong to different pianos.
+    
 
     if(data.length == 0){
       let selection = d3.select('#piano-viz').select('#no-data-text');

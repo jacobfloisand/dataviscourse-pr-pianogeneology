@@ -92,20 +92,20 @@ class Tree {
         svg.selectAll("line")
             .data(this.nodeArray)
             .enter().append("line")
-            .attr("y1", (d, i) => d.position * 120 + 50)
+            .attr("y1", (d, i) => d.position * 50 + 50)
             .attr("y2", function (d, i) {
                 if (d.parentNode === null) {
                     console.log('parent is null');
                     return 50;
                 }
-                return d.parentNode.position * 120 + 50;
+                return d.parentNode.position * 50 + 50;
             })
-            .attr("x1", (d, i) => d.level * 220 + 50)
+            .attr("x1", (d, i) => d.level * 200 + 50)
             .attr("x2", function (d, i) {
                 if (d.parentNode === null) {
                     return 50;
                 }
-                return d.parentNode.level * 220 + 50;
+                return d.parentNode.level * 200 + 50;
             });
 
         let g = svg.selectAll("g")
@@ -117,10 +117,10 @@ class Tree {
             
         g.append("rect")
             .data(this.nodeArray)
-            .attr("y", (d, i) => d.position * 120 + 25)
-            .attr("x", (d, i) => d.level * 220 + 50)
+            .attr("y", (d, i) => d.position * 50 + 25)
+            .attr("x", (d, i) => d.level * 200 + 50)
             .attr("width", 180)
-            .attr("height", 60)
+            .attr("height", 40)
             .attr('class', 'tree-rect')
             .attr('fill', function(d){
                     if(d.dataAvailable == "true"){
@@ -156,8 +156,8 @@ class Tree {
         g.append("text")
             .data(this.nodeArray)
             .text((d, i) => "\u00A0\u00A0\u00A0" + d.name)
-            .attr("y", (d, i) => d.position * 120 + 50)
-            .attr("x", (d, i) => d.level * 220 + 50)
+            .attr("y", (d, i) => d.position * 50 + 50)
+            .attr("x", (d, i) => d.level * 200 + 50)
             .attr("class", "tree-chart-label")
             .on('mouseover', (d, i, g) => {
                 if(d.dataAvailable == "true"){
@@ -216,15 +216,15 @@ class Tree {
 
 }
 
-function piano() {
-    let pianokeys = Array.from(Array(50).keys());
-    let piano = d3.select('#piano').selectAll('rect')
-        .data(pianokeys)
-        .join('rect')
-        .attr('x', d => d * 20)
-        .attr('width', d => d * 20 + 20)
-        .attr('height', 50)
-        .style('fill', 'white')
-        .style('stroke', 'black');
-}
-piano();
+// function piano() {
+//     let pianokeys = Array.from(Array(50).keys());
+//     let piano = d3.select('#piano').selectAll('rect')
+//         .data(pianokeys)
+//         .join('rect')
+//         .attr('x', d => d * 20)
+//         .attr('width', d => d * 20 + 20)
+//         .attr('height', 50)
+//         .style('fill', 'white')
+//         .style('stroke', 'black');
+// }
+// piano();

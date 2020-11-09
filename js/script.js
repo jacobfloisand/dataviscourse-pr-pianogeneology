@@ -75,7 +75,7 @@ let pianoScaleY = d3.scaleLinear()
 
   d3.select('#curve').select('path').remove(); //Gets rid of the old line if there was one.
   let curveLine = d3.select('#curve').append('path')
-    .style('fill', 'white')
+    .style('fill', 'steelblue')
     .style('stroke', 'black')
     .attr('d', lineFn(data));
 

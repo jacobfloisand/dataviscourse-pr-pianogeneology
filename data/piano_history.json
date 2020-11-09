@@ -46,11 +46,6 @@
     },
     {
       "name": "Fortepiano (horizontal)",
-      "parent": "Harpsichord",
-      "dataAvailable" : "false"
-    },
-    {
-      "name": "Fortepiano (horizontal)",
       "parent": "Clavichord",
       "dataAvailable" : "false"
     },

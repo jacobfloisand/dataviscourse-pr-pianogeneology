@@ -91,8 +91,8 @@ let pianoScaleY = d3.scaleLinear()
 
 }
 
-loadData().then(data => {
-
+//loadData().then(data => {
+async function loadTree() {
   
   piano([]);
 
@@ -102,7 +102,8 @@ loadData().then(data => {
     tree.buildTree();
     tree.renderTree();
   })
-});
+}
+//});
 
 /**
  * A file loading function or CSVs
@@ -124,13 +125,15 @@ async function loadFile(file) {
   });
   return data;
 }
-
+/*
 async function loadData() {
   let pianosales = await loadFile('data/piano_sales.csv');
   let timeline = await loadFile('data/timeline.csv');
+  
 
   return {
     'sales': pianosales,
     'timeline': timeline
   };
-}
+*/
+loadTree();

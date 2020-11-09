@@ -82,7 +82,7 @@ class Tree {
         //let svgHTML = document.createElement('svg');
         let svgHTML = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svgHTML.setAttribute("width", "1200");
-        svgHTML.setAttribute("height", "1800");
+        svgHTML.setAttribute("height", "500");
         svgHTML.setAttribute("id", "tree-chart")
         let bodyHTML = document.getElementsByTagName("body")[0];
         bodyHTML.appendChild(svgHTML);

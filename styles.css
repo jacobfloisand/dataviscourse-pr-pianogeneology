@@ -48,3 +48,7 @@ line {
 .tree-chart-label {
 	pointer-events:none;
 }
+
+#tooltiptext {
+  margin: auto;
+}

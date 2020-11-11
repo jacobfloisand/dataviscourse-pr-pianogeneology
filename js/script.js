@@ -79,6 +79,7 @@ let pianoScaleY = d3.scaleLinear()
     // .curve(d3.curveBundle.beta(1))
     .curve(d3.curveCatmullRom.alpha(1));
   // .curve(d3.curveNatural);
+
     let curveSelection = d3.select('#curve').selectAll('path');
     if(curveSelection.size() == 0){
       d3.select('#curve').append('path')
@@ -93,6 +94,59 @@ let pianoScaleY = d3.scaleLinear()
       .style('stroke', 'black')
       .attr('d', lineFn(data));
     }
+
+    d3.select('body').append('div').attr('id', 'tooltipParent');
+  let Tooltip = d3.select('#tooltipParent')
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px")
+    .style("position", "absolute");
+
+   // Three function that change the tooltip when user hover / move / leave a cell
+   let mouseover = function(d) {
+    Tooltip
+      .style("opacity", 1)
+    d3.select(this)
+      .style("stroke", "black")
+      .style("stroke-width", 0)
+      .attr('r', 6)
+      .style("opacity", 1)
+      .style("margin", "auto");
+  }
+  let mousemove = function(d) {
+    Tooltip
+      .html('Year: ' + d.x + '<br>Number Sold: ' + d.y)
+      .style("left", (d3.mouse(this)[0]+20) + "px")
+      .style("top", (d3.mouse(this)[1] + 150) + "px")
+  }
+  let mouseleave = function(d) {
+    Tooltip
+      .style("opacity", 0)
+     d3.select(this)
+     .attr('r', 8)
+     .style("opacity", 0)
+       .style("stroke-width", 0)
+    //   .style("opacity", 0.8)
+  }
+  d3.select('#data-points').remove();
+  d3.select('#piano-viz').append('g').attr('id', 'data-points').selectAll('circle')
+    .data(data)
+    .join('circle')
+    .attr('cx', d => pianoScaleX(d.x) + 10)
+    .attr('cy', d => pianoScaleY(d.y))
+    .attr('r' , 8)
+    .attr('fill', 'skyblue')
+    .attr('stroke-width', 0)
+    .attr('stroke', 'black')
+    .style("opacity", 0)
+    .on("mouseover", mouseover)
+    .on("mousemove", mousemove)
+    .on("mouseleave", mouseleave);
     /*
   //d3.select('#curve').select('path').remove(); //Gets rid of the old line if there was one.
   let curveLine = d3.select('#curve').append('path')
@@ -154,20 +208,6 @@ let pianoScaleY = d3.scaleLinear()
     .duration(2000)
     .attr('cx', d => pianoScaleX(d.Year))
     .attr('cy', 250);
-
-    /*
-  //selection.filter(d => d.Name != name).remove(); //Gets rid of the dots that belong to different pianos.
-    .join('circle')
-    .transition()
-    .duration(1000)
-    .attr('class', 'event-point')
-    .attr('cx', d => pianoScaleX(d.Year))
-    .attr('cy', 250)
-    .attr('r', 5)
-    .attr('fill', '#FFA500')
-    .attr('stroke', 'black')
-    .attr('stroke-width', '.5');
-    */
 
     console.log('name is: ' + name);
 

@@ -96,16 +96,16 @@ class Tree {
             .attr("y2", function (d, i) {
                 if (d.parentNode === null) {
                     // console.log('parent is null');
-                    return 50;
+                    return 40;
                 }
                 return d.parentNode.position * 40 + 30;
             })
-            .attr("x1", (d, i) => d.level * 200 + 50)
+            .attr("x1", (d, i) => d.level * 200 + 10)
             .attr("x2", function (d, i) {
                 if (d.parentNode === null) {
                     return 50;
                 }
-                return d.parentNode.level * 200 + 50;
+                return d.parentNode.level * 200 + 10;
             });
 
         let g = svg.selectAll("g")
@@ -118,7 +118,7 @@ class Tree {
         g.append("rect")
             .data(this.nodeArray)
             .attr("y", (d, i) => d.position * 40 + 15)
-            .attr("x", (d, i) => d.level * 200 + 50)
+            .attr("x", (d, i) => d.level * 200 + 10)
             .attr("width", 180)
             .attr("height", 30)
             .attr('class', 'tree-rect')
@@ -157,7 +157,7 @@ class Tree {
             .data(this.nodeArray)
             .text((d, i) => "\u00A0\u00A0\u00A0" + d.name)
             .attr("y", (d, i) => d.position * 40 + 35)
-            .attr("x", (d, i) => d.level * 200 + 50)
+            .attr("x", (d, i) => d.level * 200 + 10)
             .attr("class", "tree-chart-label")
             .on('mouseover', (d, i, g) => {
                 if(d.dataAvailable == "true"){

@@ -1,71 +1,87 @@
-var sounds = {
-  "clavichord": {
-    url: "sounds/Clavichord.mp3"
-  },
-  "harpsichord": {
-    url: "sounds/harpsichord.mp3",
-  },
-  "monochord": {
-    url: "sounds/Monochord.mp3"
-  },
-  "psalterium": {
-    url: "sounds/psalterium.mp3"
-  },
-  "electric": {
-    url: "sounds/electric_piano.mp3"
-  },
-  "moonlight": {
-    url: "sounds/Moonlight_Sonata.mp3"
-  }
-};
+// this is the variable that determines the sound played
+let mySound = "harpsichord"
+      const correctButton = document.getElementById("music");
+
+      correctButton.addEventListener("click", function(){
+        document.getElementById(mySound).play();
+      })
+
+      // wrong1.addEventListener("click", wrongAnswer);
+      // wrong2.addEventListener("click", wrongAnswer);
+      // wrong3.addEventListener("click", wrongAnswer);
+
+      // function wrongAnswer(e){
+      //     document.getElementById("wrongSound").play();
+      // }
 
 
-var soundContext = new AudioContext();
+  // var sounds = {
+  //       "clavichord": {
+  //         url: "sounds/Clavichord.mp3"
+  //       },
+  //       "harpsichord": {
+  //         url: "sounds/harpsichord.mp3",
+  //       },
+  //       "monochord": {
+  //         url: "sounds/Monochord.mp3"
+  //       },
+  //       "psalterium": {
+  //         url: "sounds/psalterium.mp3"
+  //       },
+  //       "electric": {
+  //         url: "sounds/electric_piano.mp3"
+  //       },
+  //       "moonlight": {
+  //         url: "sounds/Moonlight_Sonata.mp3"
+  //       }
+  //     };
 
-for (var key in sounds) {
-  loadSound(key);
-}
+// var soundContext = new AudioContext();
 
-function loadSound(name) {
-  var sound = sounds[name];
+// for (var key in sounds) {
+//   loadSound(key);
+// }
 
-  var url = sound.url;
-  var buffer = sound.buffer;
+// function loadSound(name) {
+//   var sound = sounds[name];
 
-  var request = new XMLHttpRequest();
-  request.open('GET', url, true);
-  request.responseType = 'arraybuffer';
+//   var url = sound.url;
+//   var buffer = sound.buffer;
 
-  request.onload = function () {
-    soundContext.decodeAudioData(request.response, function (newBuffer) {
-      sound.buffer = newBuffer;
-    });
-  }
+//   var request = new XMLHttpRequest();
+//   request.open('GET', url, true);
+//   request.responseType = 'arraybuffer';
 
-  request.send();
-}
+//   request.onload = function () {
+//     soundContext.decodeAudioData(request.response, function (newBuffer) {
+//       sound.buffer = newBuffer;
+//     });
+//   }
 
-function playSound(name, options) {
-  var sound = sounds[name];
-  var soundVolume = sounds[name].volume || 1;
+//   request.send();
+// }
 
-  var buffer = sound.buffer;
-  if (buffer) {
-    var source = soundContext.createBufferSource();
-    source.buffer = buffer;
+// function playSound(name, options) {
+//   var sound = sounds[name];
+//   var soundVolume = sounds[name].volume || 1;
 
-    var volume = soundContext.createGain();
+//   var buffer = sound.buffer;
+//   if (buffer) {
+//     var source = soundContext.createBufferSource();
+//     source.buffer = buffer;
 
-    if (options) {
-      if (options.volume) {
-        volume.gain.value = soundVolume * options.volume;
-      }
-    } else {
-      volume.gain.value = soundVolume;
-    }
+//     var volume = soundContext.createGain();
 
-    volume.connect(soundContext.destination);
-    source.connect(volume);
-    source.start(0);
-  }
-}
+//     if (options) {
+//       if (options.volume) {
+//         volume.gain.value = soundVolume * options.volume;
+//       }
+//     } else {
+//       volume.gain.value = soundVolume;
+//     }
+
+//     volume.connect(soundContext.destination);
+//     source.connect(volume);
+//     source.start(0);
+//   }
+// }

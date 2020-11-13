@@ -221,15 +221,4 @@ class Tree {
 
 }
 
-// function piano() {
-//     let pianokeys = Array.from(Array(50).keys());
-//     let piano = d3.select('#piano').selectAll('rect')
-//         .data(pianokeys)
-//         .join('rect')
-//         .attr('x', d => d * 20)
-//         .attr('width', d => d * 20 + 20)
-//         .attr('height', 50)
-//         .style('fill', 'white')
-//         .style('stroke', 'black');
-// }
-// piano();
+

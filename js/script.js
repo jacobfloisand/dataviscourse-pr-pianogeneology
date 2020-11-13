@@ -5,7 +5,7 @@ function pianoData(data, name){
 }
 
 function piano(data, timeline, name) {
-  console.log(timeline);
+  // console.log(timeline);
   d3.select('#piano').selectAll('rect').remove();
   let pianokeys = Array.from(Array(100).keys());
   let pianos = d3.select('#piano').selectAll('rect')
@@ -70,7 +70,7 @@ function piano(data, timeline, name) {
 
   //let purchases = [{ x: 0, y: 0 }, { x: 0, y: 250 }, { x: 100, y: 200 }, { x: 200, y: 180 }, { x: 300, y: 170 }, { x: 400, y: 150 }, { x: 500, y: 100 },
   //{ x: 600, y: 50 }, { x: 700, y: 30 }, { x: 800, y: 40 }, { x: 900, y: 25 }, { x: 1000, y: 100 }, { x: 1100, y: 80 }, { x: 1200, y: 120 }, { x: 1200, y: 0 }, { x: 0, y: 0 }];
-  console.log(data);
+  // console.log(data);
 
   // const curve = d3.line().curve(d3.curveNatural);
   let lineFn = d3.line()
@@ -96,6 +96,7 @@ function piano(data, timeline, name) {
     }
 
     d3.select('body').append('div').attr('id', 'tooltipParent');
+
   let Tooltip = d3.select('#tooltipParent')
     .append("div")
     .style("opacity", 0)
@@ -182,7 +183,7 @@ function piano(data, timeline, name) {
         filteredTimeline.push(object);
       }
     }
-    console.log('filtered data is: ' + filteredTimeline);
+    // console.log('filtered data is: ' + filteredTimeline);
 
   let selection = d3.select('#timeline-viz').selectAll('circle').data(filteredTimeline);
 
@@ -209,13 +210,13 @@ function piano(data, timeline, name) {
     .attr('cx', d => pianoScaleX(d.Year))
     .attr('cy', 170);
 
-    console.log('name is: ' + name);
+    // console.log('name is: ' + name);
 
     
 
     if(data.length == 0){
       let selection = d3.select('#piano-viz').select('#no-data-text');
-      console.log('selection size is: ' + selection.size());
+      // console.log('selection size is: ' + selection.size());
       if (selection.size() == 0){
         d3.select('#piano-viz').append('text')
         .attr('id', 'no-data-text')

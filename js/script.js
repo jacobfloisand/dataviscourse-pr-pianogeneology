@@ -45,7 +45,7 @@ function piano(data, timeline, name) {
     // });
 
     let pianoScaleX = d3.scaleLinear()
-      .domain([1400, 2007])
+      .domain([1390, 2007])
       .range([0, 630]);
 
     let pianoScaleY = d3.scaleLinear()
@@ -64,7 +64,7 @@ function piano(data, timeline, name) {
     */
       data.unshift({x:pianoScaleX.invert(1200), y:pianoScaleY.invert(170)});
       //data.unshift(data[data.length - 1]);
-      data.push({x:pianoScaleX.invert(1038), y:pianoScaleY.invert(170)});
+      data.push({y:pianoScaleX.invert(1038), x:pianoScaleY.invert(170)});
       data.push({x:pianoScaleX.invert(1037), y:pianoScaleY.invert(170)});
     }
 
@@ -84,14 +84,16 @@ function piano(data, timeline, name) {
     if(curveSelection.size() == 0){
       d3.select('#curve').append('path')
       .transition().duration(1000)
-      .style('fill', 'steelblue')
-      .style('stroke', 'black')
+      // .style('fill', 'steelblue')
+      // .style('stroke', 'black')
+      .attr('class', 'salesCurve')
       .attr('d', lineFn(data));
     } else {
       curveSelection
       .transition().duration(1000)
-      .style('fill', 'steelblue')
-      .style('stroke', 'black')
+      // .style('fill', 'steelblue')
+      // .style('stroke', 'black')
+      .attr('class', 'salesCurve')
       .attr('d', lineFn(data));
     }
 
@@ -159,12 +161,12 @@ function piano(data, timeline, name) {
     //Axis labels.
     d3.select('#x-axis-text').remove();
     d3.select('#y-axis-text').remove();
-    d3.select('#piano-viz').append('text').attr('id', 'x-axis-text').text('Number Sold').style('stroke', 'black').attr('x', 60).attr('y', 670);
-    d3.select('#piano-viz').append('text').attr('id', 'y-axis-text').text('Year').style('stroke', 'black').attr('transform', 'translate(10,330)rotate(270)');
+    d3.select('#piano-viz').append('text').attr('id', 'x-axis-text').text('Number Sold').style('font-family', 'Arial').attr('x', 60).attr('y', 670);
+    d3.select('#piano-viz').append('text').attr('id', 'y-axis-text').text('Year').style('font-family', 'Arial').attr('transform', 'translate(10,330)rotate(270)');
 
   let xAxis = d3.axisRight().scale(pianoScaleX);
   d3.select('#x-axis').remove();
-  d3.select('#piano-viz').append('g').attr('id', 'x-axis').attr("transform", "translate(190, 5)").call(xAxis);
+  d3.select('#piano-viz').append('g').attr('id', 'x-axis').style('font-family', 'Arial').attr("transform", "translate(190, 5)").call(xAxis);
 
   let yAxis = d3.axisBottom().scale(pianoScaleY).ticks(5);
   d3.select('#y-axis').remove();
@@ -174,7 +176,6 @@ function piano(data, timeline, name) {
   if(circles.size() == 0){
     d3.select('#piano-viz').append('g').attr('id', 'timeline-viz').attr('transform', 'translate(10,0)');
   }
-  //d3.select('#timeline-viz').remove();
   
 
     let filteredTimeline = [];
@@ -183,18 +184,40 @@ function piano(data, timeline, name) {
         filteredTimeline.push(object);
       }
     }
-    // console.log('filtered data is: ' + filteredTimeline);
 
-  let selection = d3.select('#timeline-viz').selectAll('circle').data(filteredTimeline);
+    d3.select('#timeline-viz').selectAll('line')
+      .data(timeline)
+      .join('line')
+      .attr('x1', 180)
+      .attr('x2', 250)
+      .attr('y1', d => pianoScaleX(d.Year))
+      .attr('y2', d => pianoScaleX(d.Year))
+      .attr('stroke', 'gray')
+      .attr('opacity', function(d,i){
+              if(d.Show === 'TRUE'){
+              return 1;
+            }
+            else{
+              return 0;
+            }});
+
+  let selection = d3.select('#timeline-viz').selectAll('circle').data(timeline);
 
   let newCircles = selection.enter().append('circle')
     .attr('cy', -20)
     .attr('cx', 170 + 10)
-    .attr('r', 10)
-    // .attr('fill', '#FFA500')
-    // .attr('stroke', 'black')
-    .attr('class', 'event-point')
-    .attr('stroke-width', '.5');
+    .attr('r', 8)
+    .attr('class', function(d,i){
+            if(d.Show == 'TRUE'){
+            return 'event-point-show';
+          }
+          else{
+            return 'event-point';
+          }})
+    .on('mouseover', (d,i,g) => {
+      d3.select(g[i]).classed('event-point-hover', true)})
+    .on('mouseleave', (d,i,g) => {
+      d3.select(g[i]).classed('event-point-hover', false)});
 
   selection.exit()
     .transition()
@@ -208,11 +231,63 @@ function piano(data, timeline, name) {
   selection.transition()
     .duration(2000)
     .attr('cy', d => pianoScaleX(d.Year))
-    .attr('cx', 170 + 10);
+    .attr('cx', 180);
 
-    // console.log('name is: ' + name);
+    d3.select('#timeline-viz').selectAll('cirlce')
+    .data(timeline).join('text')
+    // .transition()
+    // .duration(2000)
+    // .selectAll('tspan')
+    .attr('y', d => pianoScaleX(d.Year) + 5)
+    .attr('x', 225)
+    .attr('dy', '.71em')
+    .style('font-family', 'Arial')
+    .text(function(d,i){
+          if(d.Show == 'TRUE'){
+          return d.ShortText;
+        }
+        else{
+          return null;
+        }})
+    .call(wrap, 200);
 
-    
+    // var height = txt.node().getBBox().height + 15
+
+    d3.select('#timeline-viz').selectAll('rect')
+    .data(timeline).join('rect')
+    .attr('x', 220)
+    .attr('y', d => pianoScaleX(d.Year) - 12)
+    .attr('height', 60)
+    .attr('width', 203)
+    .attr('rx', 5)
+    .attr('ry', 5)
+    .attr('class', function(d,i){
+          if(d.Show == 'TRUE'){
+          return 'text-rect';
+        }
+        else{
+          return 'text-rect-hide';
+        }});
+    // .attr('height', height);
+
+   
+    d3.select('#timeline-viz').selectAll('cirlce')
+    .data(timeline).join('text')
+    // .transition()
+    // .duration(2000)
+    // .selectAll('tspan')
+    .attr('y', d => pianoScaleX(d.Year) + 5)
+    .attr('x', 225)
+    .attr('dy', '.71em')
+    .style('font-family', 'Arial')
+    .text(function(d,i){
+          if(d.Show == 'TRUE'){
+          return d.ShortText;
+        }
+        else{
+          return null;
+        }})
+    .call(wrap, 200);
 
     if(data.length == 0){
       let selection = d3.select('#piano-viz').select('#no-data-text');
@@ -232,7 +307,6 @@ function piano(data, timeline, name) {
 
 }
 
-//loadData().then(data => {
 async function loadTree() {
   
   pianoData([], '');
@@ -245,6 +319,41 @@ async function loadTree() {
   })
 }
 //});
+
+// function came from stack overflow: https://stackoverflow.com/questions/24784302/wrapping-text-in-d3
+function wrap(text, width) {
+  text.each(function () {
+      var text = d3.select(this),
+          words = text.text().split(/\s+/).reverse(),
+          word,
+          line = [],
+          lineNumber = 0,
+          lineHeight = 1.1, // ems
+          x = text.attr("x"),
+          y = text.attr("y"),
+          dy = 0, //parseFloat(text.attr("dy")),
+          tspan = text.text(null)
+                      .append("tspan")
+                      .attr("x", x)
+                      .attr("y", y)
+                      .attr("dy", dy + "em");
+      while (word = words.pop()) {
+          line.push(word);
+          tspan.text(line.join(" "));
+          if (tspan.node().getComputedTextLength() > width) {
+              line.pop();
+              tspan.text(line.join(" "));
+              line = [word];
+              tspan = text.append("tspan")
+                          .attr("x", x)
+                          .attr("y", y)
+                          .attr("dy", ++lineNumber * lineHeight + dy + "em")
+                          .text(word);
+          }
+      }
+  });
+}
+
 
 /**
  * A file loading function or CSVs

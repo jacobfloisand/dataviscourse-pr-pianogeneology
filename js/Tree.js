@@ -123,13 +123,11 @@ class Tree {
             .attr('ry', 15)
             .attr("width", 180)
             .attr("height", 30)
-            .attr('class', 'tree-rect')
-            .attr('fill', function(d){
+            .attr('class', function(d){
                     if(d.dataAvailable == "true"){
-                        // console.log('data available');
-                        return 'white';
+                        return 'tree-rect-select';
                     } else {
-                        return 'lightsteelblue';
+                        return 'tree-rect';
                     }
             })
             .on('mouseover', (d, i, g) => {
@@ -137,7 +135,6 @@ class Tree {
                     d3.select(g[i]).classed('hovered', true);
                 }
               })
-              // .on('click', playSound('coin'))
               .on('mouseout', (d, i, g) => {
                 if(d.dataAvailable == "true"){
                     d3.select(g[i]).classed('hovered', false);

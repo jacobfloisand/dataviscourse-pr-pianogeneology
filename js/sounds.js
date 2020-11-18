@@ -1,5 +1,5 @@
 // this is the variable that determines the sound played
-let mySound = "harpsichord"
+let mySound = "electricpiano"
       const correctButton = document.getElementById("music");
 
       correctButton.addEventListener("click", function(){

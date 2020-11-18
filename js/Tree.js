@@ -83,7 +83,7 @@ class Tree {
         let svgHTML = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svgHTML.setAttribute("width", "1200");
         svgHTML.setAttribute("height", "400");
-        svgHTML.setAttribute("id", "tree-chart")
+        // svgHTML.setAttribute("id", "tree-chart")
         let bodyHTML = document.getElementsByTagName("body")[0];
         bodyHTML.appendChild(svgHTML);
         let svg = d3.select("#tree-chart");
@@ -92,20 +92,20 @@ class Tree {
         svg.selectAll("line")
             .data(this.nodeArray)
             .enter().append("line")
-            .attr("y1", (d, i) => d.position * 40 + 30)
-            .attr("y2", function (d, i) {
+            .attr("x1", (d, i) => d.position * 100 + 30)
+            .attr("x2", function (d, i) {
                 if (d.parentNode === null) {
                     // console.log('parent is null');
-                    return 40;
+                    return 50;
                 }
                 return d.parentNode.position * 40 + 30;
             })
-            .attr("x1", (d, i) => d.level * 200 + 10)
-            .attr("x2", function (d, i) {
+            .attr("y1", (d, i) => d.level * 50 + 10)
+            .attr("y2", function (d, i) {
                 if (d.parentNode === null) {
-                    return 50;
+                    return 40;
                 }
-                return d.parentNode.level * 200 + 10;
+                return d.parentNode.level * 50 + 10;
             });
 
         let g = svg.selectAll("g")
@@ -117,17 +117,19 @@ class Tree {
             
         g.append("rect")
             .data(this.nodeArray)
-            .attr("y", (d, i) => d.position * 40 + 15)
-            .attr("x", (d, i) => d.level * 200 + 10)
+            .attr("x", (d, i) => d.position * 100 + 15)
+            .attr("y", (d, i) => d.level * 50 + 10)
+            .attr('rx', 15)
+            .attr('ry', 15)
             .attr("width", 180)
             .attr("height", 30)
             .attr('class', 'tree-rect')
             .attr('fill', function(d){
                     if(d.dataAvailable == "true"){
-                        console.log('data available');
+                        // console.log('data available');
                         return 'white';
                     } else {
-                        return 'lightgrey';
+                        return 'lightsteelblue';
                     }
             })
             .on('mouseover', (d, i, g) => {
@@ -156,8 +158,8 @@ class Tree {
         g.append("text")
             .data(this.nodeArray)
             .text((d, i) => "\u00A0\u00A0\u00A0" + d.name)
-            .attr("y", (d, i) => d.position * 40 + 35)
-            .attr("x", (d, i) => d.level * 200 + 10)
+            .attr("x", (d, i) => d.position * 100 + 15)
+            .attr("y", (d, i) => d.level * 50 + 30)
             .attr("class", "tree-chart-label")
             .on('mouseover', (d, i, g) => {
                 if(d.dataAvailable == "true"){

@@ -7,15 +7,15 @@ function pianoData(data, name){
 function piano(data, timeline, name) {
   // console.log(timeline);
   d3.select('#piano').selectAll('rect').remove();
-  let pianokeys = Array.from(Array(100).keys());
+  let pianokeys = Array.from(Array(53).keys());
   let pianos = d3.select('#piano').selectAll('rect')
     .data(pianokeys)
     .join('rect')
     // .attr('x', d => d*20)
-    .attr('y', 0)
-    .attr('x', d => d * 12)
-    .attr('height', 170)
-    .attr('width', 12)
+    .attr('x', 0)
+    .attr('y', d => d * 12)
+    .attr('width', 170)
+    .attr('height', 12)
     .classed('keys', true);
     // .on('mouseover', (d, i, g) => {
     //   d3.select(g[i]).classed('hovered', true);
@@ -26,16 +26,16 @@ function piano(data, timeline, name) {
     // });
 
   // let blackkeys = Array.from(Array(50).keys());
-  let blackkeys = [0, 1, 2, 4, 5, 7, 8, 9, 11, 12, 14, 15, 16, 18, 19, 21, 22, 23, 25, 26, 28, 29, 30, 32, 33, 35, 36, 37, 39, 40, 42, 43, 44, 46,
-    47, 49, 50, 51, 53, 54, 56, 57, 58, 60, 61, 63, 64, 65, 67, 68, 70, 71, 72, 74, 75, 77, 78, 79, 81, 82, 84, 85, 86, 88, 89, 91, 92, 93, 95, 96, 98];
+  let blackkeys = [0, 1, 2, 4, 5, 7, 8, 9, 11, 12, 14, 15, 16, 18, 19, 21, 22, 23, 25, 26, 28, 29, 30, 
+    32, 33, 35, 36, 37, 39, 40, 42, 43, 44, 46, 47, 49, 50, 51];
 
   let blacks = d3.select('#blackkeys').selectAll('rect')
     .data(blackkeys)
     .join('rect')
-    .attr('y', 0)
-    .attr('x', d => 8 + d * 12)
-    .attr('height', 80)
-    .attr('width', 8)
+    .attr('x', 0)
+    .attr('y', d => 8 + d * 12)
+    .attr('width', 80)
+    .attr('height', 8)
     .classed('blackkeys', true);
     // .on('mouseover', (d, i, g) => {
     //   d3.select(g[i]).classed('hovered', true);
@@ -46,7 +46,7 @@ function piano(data, timeline, name) {
 
     let pianoScaleX = d3.scaleLinear()
       .domain([1400, 2007])
-      .range([0, 1200]);
+      .range([0, 630]);
 
     let pianoScaleY = d3.scaleLinear()
       .domain([0, 270000])
@@ -74,8 +74,8 @@ function piano(data, timeline, name) {
 
   // const curve = d3.line().curve(d3.curveNatural);
   let lineFn = d3.line()
-    .x(d => pianoScaleX(d.x))
-    .y(d => pianoScaleY(d.y))
+    .y(d => pianoScaleX(d.x))
+    .x(d => pianoScaleY(d.y))
     // .curve(d3.curveBundle.beta(1))
     .curve(d3.curveCatmullRom.alpha(1));
   // .curve(d3.curveNatural);
@@ -138,8 +138,8 @@ function piano(data, timeline, name) {
   d3.select('#piano-viz').append('g').attr('id', 'data-points').selectAll('circle')
     .data(data)
     .join('circle')
-    .attr('cx', d => pianoScaleX(d.x) + 10)
-    .attr('cy', d => pianoScaleY(d.y))
+    .attr('cy', d => pianoScaleX(d.x))
+    .attr('cx', d => pianoScaleY(d.y))
     .attr('r' , 10)
     .attr('fill', 'skyblue')
     .attr('stroke-width', 0)
@@ -159,16 +159,16 @@ function piano(data, timeline, name) {
     //Axis labels.
     d3.select('#x-axis-text').remove();
     d3.select('#y-axis-text').remove();
-    d3.select('#piano-viz').append('text').attr('id', 'x-axis-text').text('Year').style('stroke', 'black').attr('x', 600).attr('y', 210);
-    d3.select('#piano-viz').append('text').attr('id', 'y-axis-text').text('Number Sold').style('stroke', 'black').attr('transform', 'translate(1275,130)rotate(270)');
+    d3.select('#piano-viz').append('text').attr('id', 'x-axis-text').text('Number Sold').style('stroke', 'black').attr('x', 60).attr('y', 670);
+    d3.select('#piano-viz').append('text').attr('id', 'y-axis-text').text('Year').style('stroke', 'black').attr('transform', 'translate(10,330)rotate(270)');
 
-  let xAxis = d3.axisBottom().scale(pianoScaleX);
+  let xAxis = d3.axisRight().scale(pianoScaleX);
   d3.select('#x-axis').remove();
-  d3.select('#piano-viz').append('g').attr('id', 'x-axis').attr("transform", "translate(10, 170)").call(xAxis);
+  d3.select('#piano-viz').append('g').attr('id', 'x-axis').attr("transform", "translate(190, 5)").call(xAxis);
 
-  let yAxis = d3.axisRight().scale(pianoScaleY).ticks(5);
+  let yAxis = d3.axisBottom().scale(pianoScaleY).ticks(5);
   d3.select('#y-axis').remove();
-  d3.select('#piano-viz').append('g').attr('id', 'y-axis').attr("transform", "translate(1210, 5)").call(yAxis);
+  d3.select('#piano-viz').append('g').attr('id', 'y-axis').attr("transform", "translate(20, 635)").call(yAxis);
 
   let circles = d3.select('#timeline-viz');
   if(circles.size() == 0){
@@ -188,8 +188,8 @@ function piano(data, timeline, name) {
   let selection = d3.select('#timeline-viz').selectAll('circle').data(filteredTimeline);
 
   let newCircles = selection.enter().append('circle')
-    .attr('cx', -20)
-    .attr('cy', 170)
+    .attr('cy', -20)
+    .attr('cx', 170 + 10)
     .attr('r', 10)
     // .attr('fill', '#FFA500')
     // .attr('stroke', 'black')
@@ -199,16 +199,16 @@ function piano(data, timeline, name) {
   selection.exit()
     .transition()
     .duration(2000)
-    .attr('cx', 1300)
-    .attr('cy', 170)
+    .attr('cy', 700)
+    .attr('cx', 170 + 10)
     .remove();
 
   selection = newCircles.merge(selection);
 
   selection.transition()
     .duration(2000)
-    .attr('cx', d => pianoScaleX(d.Year))
-    .attr('cy', 170);
+    .attr('cy', d => pianoScaleX(d.Year))
+    .attr('cx', 170 + 10);
 
     // console.log('name is: ' + name);
 
@@ -221,8 +221,10 @@ function piano(data, timeline, name) {
         d3.select('#piano-viz').append('text')
         .attr('id', 'no-data-text')
         .text('No purchase data available')
-        .attr('x', 1030)
-        .attr('y', 210);
+        .attr('y', 0)
+        .attr('x', 10)
+        .style('font-size', 15)
+        .attr('transform', 'translate(10,640)rotate(270)');
       }      
     } else {
       d3.select('#no-data-text').remove();

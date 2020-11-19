@@ -62,10 +62,10 @@ function piano(data, timeline, name) {
     data.push({x:pianoScaleX.invert(1037), y:pianoScaleY.invert(250)});
     data.push({x:pianoScaleX.invert(0), y:pianoScaleY.invert(250)});
     */
-      data.unshift({x:pianoScaleX.invert(1200), y:pianoScaleY.invert(170)});
+      data.unshift({x:pianoScaleX.invert(630), y:pianoScaleY.invert(170)});
       //data.unshift(data[data.length - 1]);
-      data.push({y:pianoScaleX.invert(1038), x:pianoScaleY.invert(170)});
-      data.push({x:pianoScaleX.invert(1037), y:pianoScaleY.invert(170)});
+      data.push({x:pianoScaleX.invert(550), y:pianoScaleY.invert(170)});
+      data.push({x:pianoScaleX.invert(551), y:pianoScaleY.invert(170)});
     }
 
   //let purchases = [{ x: 0, y: 0 }, { x: 0, y: 250 }, { x: 100, y: 200 }, { x: 200, y: 180 }, { x: 300, y: 170 }, { x: 400, y: 150 }, { x: 500, y: 100 },
@@ -137,7 +137,7 @@ function piano(data, timeline, name) {
     //   .style("opacity", 0.8)
   }
   d3.select('#data-points').remove();
-  d3.select('#piano-viz').append('g').attr('id', 'data-points').selectAll('circle')
+  d3.select('#piano-viz').append('g').attr('transform', 'translate(20,0)').attr('id', 'data-points').selectAll('circle')
     .data(data)
     .join('circle')
     .attr('cy', d => pianoScaleX(d.x))
@@ -165,12 +165,14 @@ function piano(data, timeline, name) {
     d3.select('#piano-viz').append('text').attr('id', 'y-axis-text').text('Year').style('font-family', 'Arial').attr('transform', 'translate(10,330)rotate(270)');
 
   let xAxis = d3.axisRight().scale(pianoScaleX);
-  d3.select('#x-axis').remove();
-  d3.select('#piano-viz').append('g').attr('id', 'x-axis').style('font-family', 'Arial').attr("transform", "translate(190, 5)").call(xAxis);
+  if(d3.select('#x-axis').size() == 0){
+    d3.select('#piano-viz').append('g').attr('id', 'x-axis').style('font-family', 'Arial').attr("transform", "translate(190, 0)").call(xAxis);
+  }
 
-  let yAxis = d3.axisBottom().scale(pianoScaleY).ticks(5);
-  d3.select('#y-axis').remove();
-  d3.select('#piano-viz').append('g').attr('id', 'y-axis').attr("transform", "translate(20, 635)").call(yAxis);
+  let yAxis = d3.axisBottom().scale(pianoScaleY).ticks(3);
+  if(d3.select('#y-axis').size() == 0){
+    d3.select('#piano-viz').append('g').attr('id', 'y-axis').attr("transform", "translate(20, 635)").call(yAxis);
+  }
 
   let circles = d3.select('#timeline-viz');
   if(circles.size() == 0){
@@ -206,7 +208,7 @@ function piano(data, timeline, name) {
   let newCircles = selection.enter().append('circle')
     .attr('cy', -20)
     .attr('cx', 170 + 10)
-    .attr('r', 8)
+    .attr('r', 4)
     .attr('class', function(d,i){
             if(d.Show == 'TRUE'){
             return 'event-point-show';

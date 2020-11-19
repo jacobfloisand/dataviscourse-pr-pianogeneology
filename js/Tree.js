@@ -42,9 +42,9 @@ class Tree {
         }
 
         console.log(this.nodeArray)
-        this.assignLevel(this.nodeArray[0], 0);
+        this.assignLevel(this.nodeArray[0], 0); //top to bottom
         //this.assignPosition();
-        this.assignPosition(this.nodeArray[0], 0);
+        this.assignPosition(this.nodeArray[0], 4, 0, 8); //left to right
 
     }
 
@@ -61,7 +61,7 @@ class Tree {
 
     /**
      * Recursive function that assign positions to each node
-     */
+     
     assignPosition(node, position) {
         node.position = position;
         let originalPosition = position;
@@ -74,38 +74,57 @@ class Tree {
         }
         return Math.max(position, originalPosition);
     }
+    */
+   
+    assignPosition(node, position, minPosition, maxPosition) {
+        node.position = position;
+        let originalPosition = position;
+        let numChildren = node.children.length;
+        let range = maxPosition - minPosition;
+        let spacing = range / numChildren;
+        console.log(numChildren);
+        let childNum = 0;
+        for (let childNode of node.children) {
+            position = minPosition + (spacing * childNum) + spacing/2;
+            //console.log(position);
+            this.assignPosition(childNode, position, minPosition + (spacing * childNum), minPosition + (spacing * childNum) + spacing);
+            childNum = childNum + 1;
+        }
+    }
+    
 
     /**
      * Function that renders the tree
      */
     renderTree() {
         //let svgHTML = document.createElement('svg');
-        let svgHTML = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svgHTML.setAttribute("width", "1200");
-        svgHTML.setAttribute("height", "400");
+        //let svgHTML = document.createElementNS("http://www.w3.org/2000/svg", "svg").append('g').attr('transform', 'translate(300,0)');
+        //svgHTML.setAttribute("width", "1200");
+        //svgHTML.setAttribute("height", "400");
         // svgHTML.setAttribute("id", "tree-chart")
-        let bodyHTML = document.getElementsByTagName("body")[0];
-        bodyHTML.appendChild(svgHTML);
-        let svg = d3.select("#tree-chart");
+        //let bodyHTML = document.getElementsByTagName("body")[0];
+
+        let svg = d3.select('#piano-viz').append('g').attr('transform', 'translate(325,0)');
+        //let svg = d3.select("#tree-chart");
 
         // Lines
         svg.selectAll("line")
             .data(this.nodeArray)
             .enter().append("line")
-            .attr("x1", (d, i) => d.position * 100 + 30)
+            .attr("x1", (d, i) => d.position * 115 + 50)
             .attr("x2", function (d, i) {
                 if (d.parentNode === null) {
                     // console.log('parent is null');
-                    return 50;
+                    return d.position * 115 + 50;
                 }
-                return d.parentNode.position * 40 + 30;
+                return d.parentNode.position * 115 + 50;
             })
-            .attr("y1", (d, i) => d.level * 50 + 10)
+            .attr("y1", (d, i) => d.level * 75 + 30)
             .attr("y2", function (d, i) {
                 if (d.parentNode === null) {
-                    return 40;
+                    return d.level * 75 + 30;
                 }
-                return d.parentNode.level * 50 + 10;
+                return d.parentNode.level * 75 + 30;
             });
 
         let g = svg.selectAll("g")
@@ -117,12 +136,12 @@ class Tree {
             
         g.append("rect")
             .data(this.nodeArray)
-            .attr("x", (d, i) => d.position * 100 + 15)
-            .attr("y", (d, i) => d.level * 50 + 10)
+            .attr("x", (d, i) => d.position * 115 + 15)//100 + 15)
+            .attr("y", (d, i) => d.level * 75 + 10)//50 + 10)
             .attr('rx', 15)
             .attr('ry', 15)
-            .attr("width", 180)
-            .attr("height", 30)
+            .attr("width", 75)//180)
+            .attr("height", 60)//30)
             .attr('class', function(d){
                     if(d.dataAvailable == "true"){
                         return 'tree-rect-select';
@@ -154,9 +173,8 @@ class Tree {
 
         g.append("text")
             .data(this.nodeArray)
-            .text((d, i) => "\u00A0\u00A0\u00A0" + d.name)
-            .attr("x", (d, i) => d.position * 100 + 15)
-            .attr("y", (d, i) => d.level * 50 + 30)
+            .attr("x", (d, i) => d.position * 115 + 16)//100 + 15)
+            .attr("y", (d, i) => d.level * 75 + 15)//50 + 10)
             .attr("class", "tree-chart-label")
             .on('mouseover', (d, i, g) => {
                 if(d.dataAvailable == "true"){
@@ -179,9 +197,53 @@ class Tree {
                     console.log(this.nodeArray[i]);
                     this.getData(this.nodeArray[i].name);
                 }
-            });
+            })
+            .attr('dy', '.71em')
+            .style('font-family', 'Arial')
+            .text((d, i) => "\u00A0\u00A0\u00A0" + d.name)
+            .attr('font-size', 14)
+            .call(this.wrap, 25);
             
     }
+
+    // function came from stack overflow: https://stackoverflow.com/questions/24784302/wrapping-text-in-d3
+wrap(text, width) {
+    //console.log('inside wrap function')
+    text.each(function () {
+        //console.log('text.text is: ' + d3.select(this).text())
+        var text = d3.select(this),
+            words = text.text().split(/\s+/).reverse(),
+            word,
+            line = [],
+            lineNumber = 0,
+            lineHeight = 1.1, // ems
+            x = text.attr("x"),
+            y = text.attr("y"),
+            dy = 0, //parseFloat(text.attr("dy")),
+            tspan = text.text(null)
+                        .append("tspan")
+                        .attr("x", x)
+                        .attr("y", y)
+                        .attr("dy", dy + "em");
+                        words.pop();
+        while (word = words.pop()) {
+            //console.log('inside while loop')
+            line.push(word);
+            tspan.text(line.join(" "));
+            if (tspan.node().getComputedTextLength() > width) {
+                line.pop();
+                tspan.text(line.join(" "));
+                line = [word];
+                //console.log('inside while loop');
+                tspan = text.append("tspan")
+                            .attr("x", x)
+                            .attr("y", y)
+                            .attr("dy", ++lineNumber * lineHeight + dy + "em")
+                            .text(word);
+            }
+        }
+    });
+  }
 
     getData(pianoName){
         let formattedName = '';

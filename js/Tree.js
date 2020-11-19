@@ -82,7 +82,7 @@ class Tree {
         let numChildren = node.children.length;
         let range = maxPosition - minPosition;
         let spacing = range / numChildren;
-        console.log(numChildren);
+        //console.log(numChildren);
         let childNum = 0;
         for (let childNode of node.children) {
             position = minPosition + (spacing * childNum) + spacing/2;
@@ -106,8 +106,34 @@ class Tree {
 
         let svg = d3.select('#piano-viz').append('g').attr('transform', 'translate(325,0)');
         //let svg = d3.select("#tree-chart");
-
+        //const curve = d3.line().curve(d3.curveNatural);
+        var Gen = d3.line() 
+            .x((p) => p.x) 
+            .y((p) => p.y) 
+            .curve(d3.curveCatmullRom.alpha(1));
+        svg.selectAll("path")
+            .data(this.nodeArray)
+            .enter().append("path")
+            .attr('stroke', 'gray')
+            .attr('d', function (d) {
+                if(d.parentNode === null){
+                    let points = [{x:d.position * 130 + 50 , y:d.level * 63 + 30} , 
+                                  {x:d.position * 130 + 50 , y:d.level * 63 + 30} ,
+                                  {x:d.position * 130 + 50 , y:d.level * 63 + 30} ,  
+                                  {x:d.position * 130 + 50 , y:d.level * 63 + 30}];
+                    return Gen(points)
+                } else {
+                    let points = [{x:d.position * 130 + 50 , y:d.level * 63 + 15} ,
+                                  {x:d.position * 130 + 50 , y:d.level * 63 + 14} , 
+                                  {x:d.parentNode.position * 130 + 50 , y:d.parentNode.level * 63 + 10.1} ,
+                                  {x:d.parentNode.position * 130 + 50 , y:d.parentNode.level * 63 + 10}]
+                    return Gen(points)
+                }
+            }).attr('fill', 'none')
+            //.attr('d', 5);
+            
         // Lines
+        /*
         svg.selectAll("line")
             .data(this.nodeArray)
             .enter().append("line")
@@ -126,6 +152,7 @@ class Tree {
                 }
                 return d.parentNode.level * 75 + 30;
             });
+            */
 
         let g = svg.selectAll("g")
             .data(this.nodeArray)
@@ -136,12 +163,12 @@ class Tree {
             
         g.append("rect")
             .data(this.nodeArray)
-            .attr("x", (d, i) => d.position * 115 + 15)//100 + 15)
-            .attr("y", (d, i) => d.level * 75 + 10)//50 + 10)
+            .attr("x", (d, i) => d.position * 130 + 15)//115 + 15)
+            .attr("y", (d, i) => d.level * 63 + 10)//75 + 10)
             .attr('rx', 15)
             .attr('ry', 15)
-            .attr("width", 75)//180)
-            .attr("height", 60)//30)
+            .attr("width", 84)//75)
+            .attr("height", 40)//60)
             .attr('class', function(d){
                     if(d.dataAvailable == "true"){
                         return 'tree-rect-select';
@@ -173,8 +200,8 @@ class Tree {
 
         g.append("text")
             .data(this.nodeArray)
-            .attr("x", (d, i) => d.position * 115 + 16)//100 + 15)
-            .attr("y", (d, i) => d.level * 75 + 15)//50 + 10)
+            .attr("x", (d, i) => d.position * 130 + 16)//100 + 15)
+            .attr("y", (d, i) => d.level * 63 + 28)//50 + 10)
             .attr("class", "tree-chart-label")
             .on('mouseover', (d, i, g) => {
                 if(d.dataAvailable == "true"){
@@ -201,8 +228,8 @@ class Tree {
             .attr('dy', '.71em')
             .style('font-family', 'Arial')
             .text((d, i) => "\u00A0\u00A0\u00A0" + d.name)
-            .attr('font-size', 14)
-            .call(this.wrap, 25);
+            .attr('font-size', 13)
+            .call(this.wrap, 85);
             
     }
 
@@ -259,7 +286,7 @@ wrap(text, width) {
         if(pianoName == "Player Piano"){
             formattedName = 'PNEUMATIC PLAYERS';
         }
-        console.log('formatted name is: ' + formattedName);
+        //console.log('formatted name is: ' + formattedName);
         if(formattedName == ''){
             pianoData([], pianoName);
             return;

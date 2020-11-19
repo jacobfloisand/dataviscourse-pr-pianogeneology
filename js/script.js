@@ -136,20 +136,7 @@ function piano(data, timeline, name) {
        .style("stroke-width", 0)
     //   .style("opacity", 0.8)
   }
-  d3.select('#data-points').remove();
-  d3.select('#piano-viz').append('g').attr('transform', 'translate(20,0)').attr('id', 'data-points').selectAll('circle')
-    .data(data)
-    .join('circle')
-    .attr('cy', d => pianoScaleX(d.x))
-    .attr('cx', d => pianoScaleY(d.y))
-    .attr('r' , 10)
-    .attr('fill', 'skyblue')
-    .attr('stroke-width', 0)
-    .attr('stroke', 'black')
-    .style("opacity", 0)
-    .on("mouseover", mouseover)
-    .on("mousemove", mousemove)
-    .on("mouseleave", mouseleave);
+  
     /*
   //d3.select('#curve').select('path').remove(); //Gets rid of the old line if there was one.
   let curveLine = d3.select('#curve').append('path')
@@ -187,6 +174,8 @@ function piano(data, timeline, name) {
       }
     }
 
+    
+
     d3.select('#timeline-viz').selectAll('line')
       .data(timeline)
       .join('line')
@@ -202,6 +191,21 @@ function piano(data, timeline, name) {
             else{
               return 0;
             }});
+
+    d3.select('#data-points').remove();
+    d3.select('#piano-viz').append('g').attr('transform', 'translate(20,0)').attr('id', 'data-points').selectAll('circle')
+    .data(data)
+    .join('circle')
+    .attr('cy', d => pianoScaleX(d.x))
+    .attr('cx', d => pianoScaleY(d.y))
+    .attr('r' , 10)
+    .attr('fill', 'skyblue')
+    .attr('stroke-width', 0)
+    .attr('stroke', 'black')
+    .style("opacity", 0)
+    .on("mouseover", mouseover)
+    .on("mousemove", mousemove)
+    .on("mouseleave", mouseleave);
 
   let selection = d3.select('#timeline-viz').selectAll('circle').data(timeline);
 
@@ -235,30 +239,36 @@ function piano(data, timeline, name) {
     .attr('cy', d => pianoScaleX(d.Year))
     .attr('cx', 180);
 
-    d3.select('#timeline-viz').selectAll('cirlce')
-    .data(timeline).join('text')
-    // .transition()
-    // .duration(2000)
-    // .selectAll('tspan')
-    .attr('y', d => pianoScaleX(d.Year) + 5)
-    .attr('x', 225)
-    .attr('dy', '.71em')
-    .style('font-family', 'Arial')
-    .text(function(d,i){
-          if(d.Show == 'TRUE'){
-          return d.ShortText;
-        }
-        else{
-          return null;
-        }})
-    .call(wrap, 200);
+      console.log(d3.selectAll('.event-box-mini').size() == 0)
+      /*
+    //if(d3.selectAll('.event-box-mini').size() == 0){
+      d3.select('#timeline-viz').selectAll('cirlce')
+      .data(timeline).join('text')
+      // .transition()
+      // .duration(2000)
+      // .selectAll('tspan')
+      .attr('y', d => pianoScaleX(d.Year) + 5)
+      .attr('x', 225)
+      .attr('dy', '.71em')
+      .style('font-family', 'Arial')
+      .attr('class', 'event-box-mini')
+      .text(function(d,i){
+            if(d.Show == 'TRUE'){
+            return d.ShortText;
+          }
+          else{
+            return null;
+          }})
+      .call(wrap, 200);
+      //}
+      */
 
     // var height = txt.node().getBBox().height + 15
 
     d3.select('#timeline-viz').selectAll('rect')
     .data(timeline).join('rect')
     .attr('x', 220)
-    .attr('y', d => pianoScaleX(d.Year) - 12)
+    .attr('y', d => pianoScaleX(d.Year) - 10)
     .attr('height', 60)
     .attr('width', 203)
     .attr('rx', 5)
@@ -271,25 +281,28 @@ function piano(data, timeline, name) {
           return 'text-rect-hide';
         }});
     // .attr('height', height);
-
-   
-    d3.select('#timeline-viz').selectAll('cirlce')
-    .data(timeline).join('text')
-    // .transition()
-    // .duration(2000)
-    // .selectAll('tspan')
-    .attr('y', d => pianoScaleX(d.Year) + 5)
-    .attr('x', 225)
-    .attr('dy', '.71em')
-    .style('font-family', 'Arial')
-    .text(function(d,i){
-          if(d.Show == 'TRUE'){
-          return d.ShortText;
-        }
-        else{
-          return null;
-        }})
-    .call(wrap, 200);
+        
+    if(d3.selectAll('.event-box-mini').size() == 0){
+      d3.select('#timeline-viz').selectAll('cirlce')
+      .data(timeline).join('text')
+      // .transition()
+      // .duration(2000)
+      // .selectAll('tspan')
+      .attr('y', d => pianoScaleX(d.Year) + 5)
+      .attr('x', 225)
+      .attr('dy', '.71em')
+      .style('font-family', 'Arial')
+      .attr('class', 'event-box-mini')
+      .text(function(d,i){
+            if(d.Show == 'TRUE'){
+            return d.ShortText;
+          }
+          else{
+            return null;
+          }})
+      .call(wrap, 200);
+      }
+      
 
     if(data.length == 0){
       let selection = d3.select('#piano-viz').select('#no-data-text');

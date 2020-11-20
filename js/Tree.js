@@ -16,15 +16,13 @@ class Tree {
             this.nodeArray.push(testNode);
         }
         this.currentlySelectedIndex = 0;
-        console.log(this.nodeArray);
     }
 
     /**
      * Function that builds a tree from a list of nodes with parent refs
      */
     buildTree() {
-        // note: in this function you will assign positions and levels by making calls to assignPosition() and assignLevel()
-        //add parentNode and children to each Node.
+        // note: in this function we assign positions and levels by making calls to assignPosition() and assignLevel()
         for (let currentNode of this.nodeArray) {
             if (currentNode.parent === 'root') {
                 currentNode.parentNode = null;
@@ -40,11 +38,10 @@ class Tree {
                 }
             }
         }
-
-        console.log(this.nodeArray)
-        this.assignLevel(this.nodeArray[0], 0); //top to bottom
-        //this.assignPosition();
-        this.assignPosition(this.nodeArray[0], 4, 0, 8); //left to right
+        //@params: current node, level to be assigned
+        this.assignLevel(this.nodeArray[0], 0); //This function determines node's position from top to bottom
+        //@params: current node, position to be assigned, minimum level that children can have, maximum level that children can have.
+        this.assignPosition(this.nodeArray[0], 4, 0, 8); //This function determines node's position from left to right.
 
     }
 
@@ -59,34 +56,20 @@ class Tree {
 
     }
 
-    /**
-     * Recursive function that assign positions to each node
-     
-    assignPosition(node, position) {
-        node.position = position;
-        let originalPosition = position;
-        position = position - 1;
-        //let childPosition = 0
-        for (let childNode of node.children) {
-            position = position + 1;
-            position = this.assignPosition(childNode, position);
-
-        }
-        return Math.max(position, originalPosition);
-    }
-    */
-   
+    //A recursive funciton that assigns position to this node and to all children nodes.
+    //@params:
+    //node(object) - the node that is to be assigned a position.
+    //position(int) - the position to be assigned to node
+    //minPosition(int) - the lowest position that any child node is allowed to have(for space reasons)
+    //maxPosition(int) - the highest position that any child node is allowed to have(for space reasons)
     assignPosition(node, position, minPosition, maxPosition) {
         node.position = position;
-        let originalPosition = position;
         let numChildren = node.children.length;
         let range = maxPosition - minPosition;
-        let spacing = range / numChildren;
-        //console.log(numChildren);
-        let childNum = 0;
+        let spacing = range / numChildren; //Spacing determines how far apart each node will be when rendered.
+        let childNum = 0; //This is used to help space nodes out evenly when rendered.
         for (let childNode of node.children) {
-            position = minPosition + (spacing * childNum) + spacing/2;
-            //console.log(position);
+            position = minPosition + (spacing * childNum) + spacing/2; //Calculate the position for the next child.
             this.assignPosition(childNode, position, minPosition + (spacing * childNum), minPosition + (spacing * childNum) + spacing);
             childNum = childNum + 1;
         }
@@ -97,79 +80,47 @@ class Tree {
      * Function that renders the tree
      */
     renderTree() {
-        //let svgHTML = document.createElement('svg');
-        //let svgHTML = document.createElementNS("http://www.w3.org/2000/svg", "svg").append('g').attr('transform', 'translate(300,0)');
-        //svgHTML.setAttribute("width", "1200");
-        //svgHTML.setAttribute("height", "400");
-        // svgHTML.setAttribute("id", "tree-chart")
-        //let bodyHTML = document.getElementsByTagName("body")[0];
-
         let svg = d3.select('#piano-viz').append('g').attr('transform', 'translate(325,0)');
-        //let svg = d3.select("#tree-chart");
-        //const curve = d3.line().curve(d3.curveNatural);
-        var Gen = d3.line() 
+        //line generator makes edges curvy.
+        var gen = d3.line()
             .x((p) => p.x) 
             .y((p) => p.y) 
             .curve(d3.curveCatmullRom.alpha(1));
+        //Render edges that connect verteces.
         svg.selectAll("path")
             .data(this.nodeArray)
             .enter().append("path")
             .attr('stroke', 'gray')
             .attr('d', function (d) {
                 if(d.parentNode === null){
-                    let points = [{x:d.position * 130 + 50 , y:d.level * 63 + 30} , 
-                                  {x:d.position * 130 + 50 , y:d.level * 63 + 30} ,
-                                  {x:d.position * 130 + 50 , y:d.level * 63 + 30} ,  
-                                  {x:d.position * 130 + 50 , y:d.level * 63 + 30}];
-                    return Gen(points)
+                    let points = [];
+                    return gen(points)
                 } else {
-                    let points = [{x:d.position * 130 + 50 , y:d.level * 63 + 15} ,
-                                  {x:d.position * 130 + 50 , y:d.level * 63 + 14} , 
-                                  {x:d.parentNode.position * 130 + 50 , y:d.parentNode.level * 63 + 10.1} ,
-                                  {x:d.parentNode.position * 130 + 50 , y:d.parentNode.level * 63 + 10}]
-                    return Gen(points)
+                    //Below we define the curve connecting the verteces in the rendered tree.
+                    let points = [{x:d.position * 130 + 50 , y:d.level * 63 + 15} , //This is where the line ends.
+                                  {x:d.position * 130 + 50 , y:d.level * 63 + 14} , //This manipulates the curve to bend up, instead of down.
+                                  {x:d.parentNode.position * 130 + 50 , y:d.parentNode.level * 63 + 10.1} , //This manipulates the curve to bend down, instead of up.
+                                  {x:d.parentNode.position * 130 + 50 , y:d.parentNode.level * 63 + 10}] //This is where the line starts
+                    return gen(points)
                 }
-            }).attr('fill', 'none')
-            //.attr('d', 5);
-            
-        // Lines
-        /*
-        svg.selectAll("line")
-            .data(this.nodeArray)
-            .enter().append("line")
-            .attr("x1", (d, i) => d.position * 115 + 50)
-            .attr("x2", function (d, i) {
-                if (d.parentNode === null) {
-                    // console.log('parent is null');
-                    return d.position * 115 + 50;
-                }
-                return d.parentNode.position * 115 + 50;
-            })
-            .attr("y1", (d, i) => d.level * 75 + 30)
-            .attr("y2", function (d, i) {
-                if (d.parentNode === null) {
-                    return d.level * 75 + 30;
-                }
-                return d.parentNode.level * 75 + 30;
-            });
-            */
-
+            }).attr('fill', 'none');
+        
+        //Create a group element which will hold all of the nodes.
         let g = svg.selectAll("g")
             .data(this.nodeArray)
             .enter().append("g")
             .attr("class", "nodeGroup")
-        //.attr("tranform", ((d, i) => "translate(" + (d.level * 120 + 50) + ", " + (d.position * 120 + 50) + ")"));  // scale(1,-1)")); //tranlate(150, 150)
-        //.attr("tranform", "translate(200 200) rotate(90)");
             
+        //Render the verteces which are rectangles.
         g.append("rect")
             .data(this.nodeArray)
-            .attr("x", (d, i) => d.position * 130 + 15)//115 + 15)
-            .attr("y", (d, i) => d.level * 63 + 10)//75 + 10)
+            .attr("x", (d, i) => d.position * 130 + 15)
+            .attr("y", (d, i) => d.level * 63 + 10)
             .attr('rx', 15)
             .attr('ry', 15)
-            .attr("width", 84)//75)
-            .attr("height", 40)//60)
-            .attr('class', function(d){
+            .attr("width", 84)
+            .attr("height", 40)
+            .attr('class', function(d){ //The selected rectangle has a gray outline.
                     if(d.dataAvailable == "true"){
                         return 'tree-rect-select';
                     } else {
@@ -193,22 +144,21 @@ class Tree {
                         d3.select(g[i]).classed('tree-rect', false);
                         d3.select(g[i]).classed('selected', true);
                         this.currentlySelectedIndex = i;
-                        console.log(this.nodeArray[i]);
                         this.getData(this.nodeArray[i].name);
                   }
               });
 
+        //Render the names of the instruments which appear on top of the rectangle verteces.
         g.append("text")
             .data(this.nodeArray)
-            .attr("x", (d, i) => d.position * 130 + 16)//100 + 15)
-            .attr("y", (d, i) => d.level * 63 + 28)//50 + 10)
+            .attr("x", (d, i) => d.position * 130 + 16)
+            .attr("y", (d, i) => d.level * 63 + 28)
             .attr("class", "tree-chart-label")
             .on('mouseover', (d, i, g) => {
                 if(d.dataAvailable == "true"){
                     d3.select(g[i]).classed('hovered', true);
                 }
               })
-              // .on('click', playSound('coin'))
               .on('mouseout', (d, i, g) => {
                 if(d.dataAvailable == "true"){
                     d3.select(g[i]).classed('hovered', false);
@@ -246,22 +196,20 @@ wrap(text, width) {
             lineHeight = 1.1, // ems
             x = text.attr("x"),
             y = text.attr("y"),
-            dy = 0, //parseFloat(text.attr("dy")),
+            dy = 0, 
             tspan = text.text(null)
                         .append("tspan")
                         .attr("x", x)
                         .attr("y", y)
                         .attr("dy", dy + "em");
-                        words.pop();
+                        words.pop(); //We pop off the spaces that we put at the beginning of the text.
         while (word = words.pop()) {
-            //console.log('inside while loop')
             line.push(word);
             tspan.text(line.join(" "));
             if (tspan.node().getComputedTextLength() > width) {
                 line.pop();
                 tspan.text(line.join(" "));
                 line = [word];
-                //console.log('inside while loop');
                 tspan = text.append("tspan")
                             .attr("x", x)
                             .attr("y", y)
@@ -272,6 +220,13 @@ wrap(text, width) {
     });
   }
 
+    //This function converts a piano name from one format to another.
+    //Specifically, it acts as a bridge that relates the names in piano_history.json to piano_sales.csv.
+    //Note: This function re-renders the whole piano visualization.
+    //@parms:
+    //pianoName(string) - The name of the piano as it is found in piano_history.json
+    //@returns: 
+    //string - The piano name as it is found in piano_sales.csv. If no match is found, an empty string is returned.
     getData(pianoName){
         let formattedName = '';
         if(pianoName == "Modern upright piano"){
@@ -286,33 +241,25 @@ wrap(text, width) {
         if(pianoName == "Player Piano"){
             formattedName = 'PNEUMATIC PLAYERS';
         }
-        //console.log('formatted name is: ' + formattedName);
         if(formattedName == ''){
-            pianoData([], pianoName);
+            //@params: The sales history as an array, the name of the piano as found in piano_sales.csv.
+            pianoData([], pianoName); //pianoData is defined in script.js
             return;
         }
+        //The following expression gets the sales data from piano_sales.csv and then re-renders the piano-viz.
         d3.csv('data/piano_sales.csv').then(d => {
-            console.log(d);
+            //Mapped will hold an array of sales history data for the current instrument.
             let mapped = d.map(g => {
                 if(g[formattedName] == '' || g[formattedName] == '(3 Months)'){
                     return null;
                 }
                 return {x:parseInt(g['YEAR']), y:parseInt(g[formattedName].replace(/,/g, ''))};
               });
-              console.log('finished mapping');
               mapped = mapped.filter(function (el) {
                 return el != null;
               });
-              pianoData(mapped, pianoName);
+              //@params: The sales history as an array, the name of the piano as found in piano_sales.csv.
+              pianoData(mapped, pianoName); //pianoData is defined in script.js
           });
     }
-
 }
-
-
-//Load tree data
-d3.json('./data/piano_history.json').then(treeData => {
-    let tree = new Tree(treeData);
-    tree.buildTree();
-    tree.renderTree();
-  })

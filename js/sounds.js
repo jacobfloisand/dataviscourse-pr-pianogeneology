@@ -2,9 +2,9 @@
 let mySound = "electricpiano"
       const correctButton = document.getElementById("music");
 
-      correctButton.addEventListener("click", function(){
-        document.getElementById(mySound).play();
-      })
+     // correctButton.addEventListener("click", function(){
+       // document.getElementById(mySound).play();
+      //})
 
       // wrong1.addEventListener("click", wrongAnswer);
       // wrong2.addEventListener("click", wrongAnswer);

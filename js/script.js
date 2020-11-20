@@ -148,17 +148,17 @@ function piano(data, timeline, name) {
     //Axis labels.
     d3.select('#x-axis-text').remove();
     d3.select('#y-axis-text').remove();
-    d3.select('#piano-viz').append('text').attr('id', 'x-axis-text').text('Number Sold').style('font-family', 'Arial').attr('x', 60).attr('y', 670);
-    d3.select('#piano-viz').append('text').attr('id', 'y-axis-text').text('Year').style('font-family', 'Arial').attr('transform', 'translate(10,330)rotate(270)');
+    d3.select('#piano-viz').append('text').attr('id', 'x-axis-text').text('NUMBER SOLD').style('font-family', 'Arial').attr('x', 45).attr('y', 675);
+    d3.select('#piano-viz').append('text').attr('id', 'y-axis-text').text('YEAR').style('font-family', 'Arial').attr('transform', 'translate(13,330)rotate(270)');
 
-  let xAxis = d3.axisRight().scale(pianoScaleX);
+  let xAxis = d3.axisRight().scale(pianoScaleX).tickFormat(d3.format("0"));
   if(d3.select('#x-axis').size() == 0){
-    d3.select('#piano-viz').append('g').attr('id', 'x-axis').style('font-family', 'Arial').attr("transform", "translate(190, 0)").call(xAxis);
+    d3.select('#piano-viz').append('g').attr('id', 'x-axis').style('font-family', 'Arial').attr("transform", "translate(190, 5)").call(xAxis);
   }
 
-  let yAxis = d3.axisBottom().scale(pianoScaleY).ticks(3);
+  let yAxis = d3.axisBottom().scale(pianoScaleY).ticks(5).tickFormat(d3.format(".0s"));
   if(d3.select('#y-axis').size() == 0){
-    d3.select('#piano-viz').append('g').attr('id', 'y-axis').attr("transform", "translate(20, 635)").call(yAxis);
+    d3.select('#piano-viz').append('g').attr('id', 'y-axis').attr("transform", "translate(20, 640)").call(yAxis);
   }
 
   let circles = d3.select('#timeline-viz');
@@ -179,10 +179,14 @@ function piano(data, timeline, name) {
     d3.select('#timeline-viz').selectAll('line')
       .data(timeline)
       .join('line')
+      // .attr('y1', 0)
+      // .attr('y2', 0)
+      .transition()
+      .duration(2000)
       .attr('x1', 180)
       .attr('x2', 250)
-      .attr('y1', d => pianoScaleX(d.Year))
-      .attr('y2', d => pianoScaleX(d.Year))
+      .attr('y1', d => pianoScaleX(d.Year) + 5)
+      .attr('y2', d => pianoScaleX(d.Year) + 5)
       .attr('stroke', 'gray')
       .attr('opacity', function(d,i){
               if(d.Show === 'TRUE'){
@@ -196,7 +200,7 @@ function piano(data, timeline, name) {
     d3.select('#piano-viz').append('g').attr('transform', 'translate(20,0)').attr('id', 'data-points').selectAll('circle')
     .data(data)
     .join('circle')
-    .attr('cy', d => pianoScaleX(d.x))
+    .attr('cy', d => pianoScaleX(d.x) + 5)
     .attr('cx', d => pianoScaleY(d.y))
     .attr('r' , 10)
     .attr('fill', 'skyblue')
@@ -212,7 +216,7 @@ function piano(data, timeline, name) {
   let newCircles = selection.enter().append('circle')
     .attr('cy', -20)
     .attr('cx', 170 + 10)
-    .attr('r', 4)
+    .attr('r', 6)
     .attr('class', function(d,i){
             if(d.Show == 'TRUE'){
             return 'event-point-show';
@@ -229,14 +233,14 @@ function piano(data, timeline, name) {
     .transition()
     .duration(2000)
     .attr('cy', 700)
-    .attr('cx', 170 + 10)
+    .attr('cx', 180)
     .remove();
 
   selection = newCircles.merge(selection);
 
   selection.transition()
     .duration(2000)
-    .attr('cy', d => pianoScaleX(d.Year))
+    .attr('cy', d => pianoScaleX(d.Year) + 5)
     .attr('cx', 180);
 
       console.log(d3.selectAll('.event-box-mini').size() == 0)
@@ -267,12 +271,16 @@ function piano(data, timeline, name) {
 
     d3.select('#timeline-viz').selectAll('rect')
     .data(timeline).join('rect')
+    .attr('y', 0)
     .attr('x', 220)
-    .attr('y', d => pianoScaleX(d.Year) - 10)
     .attr('height', 60)
     .attr('width', 203)
     .attr('rx', 5)
     .attr('ry', 5)
+    .transition()
+    .duration(2000)
+    .attr('x', 220)
+    .attr('y', d => pianoScaleX(d.Year) - 7)
     .attr('class', function(d,i){
           if(d.Show == 'TRUE'){
           return 'text-rect';
@@ -285,10 +293,12 @@ function piano(data, timeline, name) {
     if(d3.selectAll('.event-box-mini').size() == 0){
       d3.select('#timeline-viz').selectAll('cirlce')
       .data(timeline).join('text')
+      .attr('y', 0)
+      .attr('x', 225)
       // .transition()
       // .duration(2000)
       // .selectAll('tspan')
-      .attr('y', d => pianoScaleX(d.Year) + 5)
+      .attr('y', d => pianoScaleX(d.Year) + 10)
       .attr('x', 225)
       .attr('dy', '.71em')
       .style('font-family', 'Arial')
@@ -326,12 +336,7 @@ async function loadTree() {
   
   pianoData([], '');
 
-  //Load tree data
-  d3.json('./data/piano_history.json').then(treeData => {
-    let tree = new Tree(treeData);
-    tree.buildTree();
-    tree.renderTree();
-  })
+  
 }
 //});
 

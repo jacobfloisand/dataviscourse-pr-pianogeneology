@@ -2,6 +2,10 @@
 let mySound = "electricpiano"
       const correctButton = document.getElementById("music");
 
+      // window.onload = function() {
+      //   document.getElementById("moonlight").play();
+      //   }
+
      // correctButton.addEventListener("click", function(){
        // document.getElementById(mySound).play();
       //})

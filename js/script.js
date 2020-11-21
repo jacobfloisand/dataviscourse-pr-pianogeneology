@@ -46,7 +46,7 @@ function piano(data, timeline, name) {
       .range([0, 630]);
 
     let pianoScaleY = d3.scaleLinear()
-      .domain([0, 270000])
+      .domain([0, d3.max(data, d => d.y)])
       .range([170, 0]);
 
     //These additions to data make sure that only the area inside the line chart is blue.
@@ -135,7 +135,8 @@ function piano(data, timeline, name) {
     d3.select('#piano-viz').append('g').attr('id', 'x-axis').style('font-family', 'Arial').attr("transform", "translate(190, 5)").call(xAxis);
   }
 
-  let yAxis = d3.axisBottom().scale(pianoScaleY).ticks(5).tickFormat(d3.format(".0s"));
+  let yAxis = d3.axisBottom(d3.scaleLinear().domain([0, d3.max(data, d => d.y)]).range([170, 0])).scale(pianoScaleY).ticks(5).tickFormat(d3.format(".0s"));
+  // let yAxis = d3.axisBottom().scale(pianoScaleY).ticks(5).tickFormat(d3.format(".0s"));
   if(d3.select('#y-axis').size() == 0){
     //Add y axis.
     d3.select('#piano-viz').append('g').attr('id', 'y-axis').attr("transform", "translate(20, 640)").call(yAxis);
@@ -147,8 +148,8 @@ function piano(data, timeline, name) {
     d3.select('#piano-viz').append('g').attr('id', 'timeline-viz').attr('transform', 'translate(10,0)');
   }
 
-    d3.select('#data-points').remove(); //Remove the blue circles so we don't create more on top of the ones we already have.
-    //Create the blue hover circles that reveal the tool tip. These circles are on the line chart, not underneath.
+    d3.select('#data-points').remove(); //Remove the orange circles so we don't create more on top of the ones we already have.
+    //Create the orange hover circles that reveal the tool tip. These circles are on the line chart, not underneath.
     d3.select('#piano-viz').append('g').attr('transform', 'translate(20,0)').attr('id', 'data-points').selectAll('circle')
     .data(data)
     .join('circle')
@@ -199,25 +200,27 @@ function piano(data, timeline, name) {
     .attr('cx', 180);
     
       //Render the event mini text boxes.
-    d3.select('#timeline-viz').selectAll('rect')
+    let timelineEvents = d3.select('#timeline-viz').selectAll('rect')
     .data(timeline).join('rect')
-    .attr('y', 0)
+    .attr('y', -80)
     .attr('x', 220)
     .attr('height', 60)
     .attr('width', 203)
     .attr('rx', 5)
-    .attr('ry', 5)
-    .transition()
-    .duration(2000)
-    .attr('x', 220)
-    .attr('y', d => pianoScaleX(d.Year) - 7)
-    .attr('class', function(d,i){
-          if(d.Show == 'TRUE'){
-          return 'text-rect';
-        }
-        else{
-          return 'text-rect-hide';
-        }});
+    .attr('ry', 5);
+    
+      //move timeline events into place
+      timelineEvents.transition()
+        .duration(2000)
+        .attr('x', 220)
+        .attr('y', d => pianoScaleX(d.Year) - 7)
+        .attr('class', function(d,i){
+              if(d.Show == 'TRUE'){
+              return 'text-rect';
+            }
+            else{
+              return 'text-rect-hide';
+            }});
         
         //Render the text on the event mini text boxes. First we check to see if they have already been made.
     if(d3.selectAll('.event-box-mini-text').size() == 0){
@@ -225,6 +228,8 @@ function piano(data, timeline, name) {
       .data(timeline).join('text')
       .attr('y', 0)
       .attr('x', 225)
+      // .transition()
+      // .duration(2000)
       .attr('y', d => pianoScaleX(d.Year) + 10)
       .attr('x', 225)
       .attr('dy', '.71em')

@@ -97,10 +97,10 @@ class Tree {
                     return gen(points)
                 } else {
                     //Below we define the curve connecting the verteces in the rendered tree.
-                    let points = [{x:d.position * 130 + 50 , y:d.level * 63 + 15} , //This is where the line ends.
-                                  {x:d.position * 130 + 50 , y:d.level * 63 + 14} , //This manipulates the curve to bend up, instead of down.
-                                  {x:d.parentNode.position * 130 + 50 , y:d.parentNode.level * 63 + 10.1} , //This manipulates the curve to bend down, instead of up.
-                                  {x:d.parentNode.position * 130 + 50 , y:d.parentNode.level * 63 + 10}] //This is where the line starts
+                    let points = [{x:d.position * 140 + 50 , y:d.level * 60 + 15} , //This is where the line ends.
+                                  {x:d.position * 140 + 50 , y:d.level * 60 + 14} , //This manipulates the curve to bend up, instead of down.
+                                  {x:d.parentNode.position * 140 + 50 , y:d.parentNode.level * 60 + 10.1} , //This manipulates the curve to bend down, instead of up.
+                                  {x:d.parentNode.position * 140 + 50 , y:d.parentNode.level * 60 + 10}] //This is where the line starts
                     return gen(points)
                 }
             }).attr('fill', 'none');
@@ -114,11 +114,11 @@ class Tree {
         //Render the verteces which are rectangles.
         g.append("rect")
             .data(this.nodeArray)
-            .attr("x", (d, i) => d.position * 130 + 15)
-            .attr("y", (d, i) => d.level * 63 + 10)
-            .attr('rx', 15)
-            .attr('ry', 15)
-            .attr("width", 84)
+            .attr("x", (d, i) => d.position * 140 + 10)
+            .attr("y", (d, i) => d.level * 60 + 10)
+            .attr('rx', 10)
+            .attr('ry', 10)
+            .attr("width", 90)
             .attr("height", 40)
             .attr('class', function(d){ //The selected rectangle has a gray outline.
                     if(d.dataAvailable == "true"){
@@ -151,8 +151,8 @@ class Tree {
         //Render the names of the instruments which appear on top of the rectangle verteces.
         g.append("text")
             .data(this.nodeArray)
-            .attr("x", (d, i) => d.position * 130 + 16)
-            .attr("y", (d, i) => d.level * 63 + 28)
+            .attr("x", (d, i) => d.position * 140 + 16)
+            .attr("y", (d, i) => d.level * 60 + 28)
             .attr("class", "tree-chart-label")
             .on('mouseover', (d, i, g) => {
                 if(d.dataAvailable == "true"){

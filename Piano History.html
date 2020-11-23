@@ -6,8 +6,10 @@
     <title>History of the Piano</title>
 
     <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
     <link rel="stylesheet" href="styles.css" />
     <script src="js/Node.js" async></script>
+
 
     
 
@@ -63,6 +65,25 @@
             </svg>
         
     </div>
+<div id="event-box" class="event-box">
+    <div class="wrapper">
+        <div id="event-header" class="event-header">
+            <div id="event-title" class="event-title">Instrument Name</div>
+            <div id="event-audio" class="event-audio">
+                <audio id="audioElement"></audio>
+                <div>
+                    <button onclick="document.getElementById('audioElement').play()">&blacktriangleright;</button>
+                </div>
+            </div>
+        </div>
+        <div id="event-body" class="event-body">
+            <div id="event-info" class="event-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias architecto atque beatae, consequuntur dicta dolores eveniet illo illum ipsum laudantium molestiae numquam odio optio quae qui quo ut vel voluptates!</div>
+            <div id="event-image" class="event-image">
+                <img id="image-piano" class="image-piano"></img>
+        </div>
+        </div>
+    </div>
+</div>
     <script src="js/Tree.js" async></script>
     <script src="js/script.js"></script>
     <script src="js/sounds.js"></script>

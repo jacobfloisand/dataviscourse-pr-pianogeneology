@@ -99,3 +99,55 @@ line {
 .text-rect-hide{
     opacity: 0;
 }
+
+.event-box {
+    visibility: hidden;
+}
+
+.wrapper {
+    position: fixed;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: minmax(50px, auto);
+    grid-gap: .5em;
+    top: 77%;
+    left: 65%;
+    transform: translate(-50%, -50%);
+    border: 1px solid dimgrey;
+    border-radius: 10px;
+    background-color: antiquewhite;
+    width: 500px;
+    max-width: 40%;
+}
+
+.event-header {
+    padding: 15px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.event-title {
+    font-family: fantasy;
+    font-size: 24px;
+    color: inherit;
+    font-weight: bold;
+}
+
+.event-body {
+    display: flex;
+    justify-content: space-between;
+}
+
+.event-info {
+    font-family: fantasy;
+    padding: 10px;
+}
+
+.image-piano {
+    opacity: .8;
+    width: 200px;
+    height: 200px;
+    padding: 5px;
+}

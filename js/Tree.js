@@ -180,7 +180,30 @@ class Tree {
             .text((d, i) => "\u00A0\u00A0\u00A0" + d.name)
             .attr('font-size', 13)
             .call(this.wrap, 85);
-            
+
+        // EventBox
+        function onClick(d) {
+            document.getElementById('event-box').style.visibility='visible';
+            let event = d3.select('.event-title').text(d.name);
+            let timeline = d3.csv('./data/timeline.csv', function(d) {
+                return {
+                    name : d.Name,
+                    text: d.Text
+                };
+            }).then(function(data) {
+                const result = data.find( ({ name }) => name === d.name );
+                let details = d3.select('.event-info').text(result.text);
+            });
+
+            // Instrument image
+            let photo = d3.select('.event-image img')
+                .attr('src', './photos/'+ d.name +'.jpg');
+
+            // Instrument Audio
+            let audio = d3.select('.event-audio audio').attr('src', './sounds_trim/'+ d.name +'.mp3');
+        }
+
+        g.on('click', onClick);
     }
 
     // function came from stack overflow: https://stackoverflow.com/questions/24784302/wrapping-text-in-d3

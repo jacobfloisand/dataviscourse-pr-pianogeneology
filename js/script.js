@@ -9,7 +9,7 @@ function pianoData(data, name){
 }
 
 //This function re-renders the piano visualization.
-//Important: Do not call this function directly. Please call pianoData instead the piano visualization needs to be re-rendered.
+//Important: Do not call this function directly. Please call pianoData instead when the piano visualization needs to be re-rendered.
 //@Params:  - data(array) - A list of sales data for a particular instrument. If no sales data is available this array should be empty.
 //          - timeline(json array) - A list of events to be rendered.
 //          - name(string) - The name of the piano for which we are rendering.
@@ -45,8 +45,10 @@ function piano(data, timeline, name) {
       .domain([1390, 2007])
       .range([0, 630]);
 
+      console.log('max is: ' + d3.max(data, d => d.y));
+      console.log('rounded is: ' + Math.ceil(d3.max(data, d => d.y)/1000)*1000);
     let pianoScaleY = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.y)])
+      .domain([0, Math.ceil(d3.max(data, d => d.y)/10000)*10000])
       .range([170, 0]);
 
     //These additions to data make sure that only the area inside the line chart is blue.
@@ -135,12 +137,10 @@ function piano(data, timeline, name) {
     d3.select('#piano-viz').append('g').attr('id', 'x-axis').style('font-family', 'Arial').attr("transform", "translate(190, 5)").call(xAxis);
   }
 
-  let yAxis = d3.axisBottom(d3.scaleLinear().domain([0, d3.max(data, d => d.y)]).range([170, 0])).scale(pianoScaleY).ticks(5).tickFormat(d3.format(".0s"));
-  // let yAxis = d3.axisBottom().scale(pianoScaleY).ticks(5).tickFormat(d3.format(".0s"));
-  if(d3.select('#y-axis').size() == 0){
+   let yAxis = d3.axisBottom().scale(pianoScaleY).ticks(5).tickFormat(d3.format("~s"));
+  d3.select('#y-axis').remove();
     //Add y axis.
     d3.select('#piano-viz').append('g').attr('id', 'y-axis').attr("transform", "translate(20, 640)").call(yAxis);
-  }
 
   //Create a container for the blue circles shown on the line chart on hover.
   let circles = d3.select('#timeline-viz');
@@ -200,41 +200,30 @@ function piano(data, timeline, name) {
     .attr('cx', 180);
     
       //Render the event mini text boxes.
-    let timelineEvents = d3.select('#timeline-viz').selectAll('rect')
-    .data(timeline).join('rect')
-    .attr('y', -80)
+      if(d3.select('#event-rectangles').size() == 0){
+    let timelineEvents = d3.select('#timeline-viz').append('g').attr('id', 'event-rectangles').selectAll('g')
+    .data(timeline).join('g');
+    
+    timelineEvents.append('rect')
+    .attr('y', 0)
     .attr('x', 220)
     .attr('height', 60)
     .attr('width', 203)
     .attr('rx', 5)
-    .attr('ry', 5);
-    
-      //move timeline events into place
-      timelineEvents.transition()
-        .duration(2000)
-        .attr('x', 220)
-        .attr('y', d => pianoScaleX(d.Year) - 7)
-        .attr('class', function(d,i){
-              if(d.Show == 'TRUE'){
-              return 'text-rect';
-            }
-            else{
-              return 'text-rect-hide';
-            }});
-        
-        //Render the text on the event mini text boxes. First we check to see if they have already been made.
-    if(d3.selectAll('.event-box-mini-text').size() == 0){
-      d3.select('#timeline-viz').selectAll('text')
-      .data(timeline).join('text')
-      .attr('y', 0)
-      .attr('x', 225)
-      // .transition()
-      // .duration(2000)
-      .attr('y', d => pianoScaleX(d.Year) + 10)
+    .attr('ry', 5)
+    .attr('class', function(d,i){
+      if(d.Show == 'TRUE'){
+      return 'text-rect';
+    }
+    else{
+      return 'text-rect-hide';
+    }});
+
+    timelineEvents.append('text')
+    .attr('y', 15)
       .attr('x', 225)
       .attr('dy', '.71em')
       .style('font-family', 'Arial')
-      .attr('class', 'event-box-mini-text')
       .text(function(d,i){
             if(d.Show == 'TRUE'){
             return d.ShortText;
@@ -243,7 +232,12 @@ function piano(data, timeline, name) {
             return null;
           }})
       .call(wrap, 200);
-      }
+    
+      //move timeline events into place
+      timelineEvents.transition()
+        .duration(2000)
+        .attr('transform', d => 'translate(0, ' + (pianoScaleX(d.Year) - 10) + ')');
+          }
       
 
     if(data.length == 0){

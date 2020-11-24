@@ -19,22 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d194dbe5-e964-4f76-91e5-f3ab5ac5eeca" name="Default Changelist" comment="Added EventBox">
-      <change afterPath="$PROJECT_DIR$/photos/Clavicitherium.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/photos/Psalterium.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/photos/electric piano.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/photos/fortepiano (horizontal).jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/photos/modern upright piano.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/photos/player piano.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/photos/polychord with bridge.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/photos/polychord without bridge.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/photos/spinet virginal.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sounds_trim/electric piano.mp3" afterDir="false" />
+    <list default="true" id="d194dbe5-e964-4f76-91e5-f3ab5ac5eeca" name="Default Changelist" comment="Added the rest of the piano images">
+      <change afterPath="$PROJECT_DIR$/sounds/Clavicitherium.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sounds_trim/clavicitherium.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/photos/forte piano.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/photos/player piano.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/photos/upright piano.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds_trim/electric_piano.mp3" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +72,7 @@
       <workItem from="1604597280371" duration="384000" />
       <workItem from="1604604634489" duration="1452000" />
       <workItem from="1606075771812" duration="10951000" />
-      <workItem from="1606160244180" duration="2234000" />
+      <workItem from="1606160244180" duration="2992000" />
     </task>
     <task id="LOCAL-00001" summary="Added EventBox">
       <created>1606105735458</created>
@@ -93,7 +81,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606105735458</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added the rest of the piano images">
+      <created>1606188032880</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1606188032880</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,7 +109,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Added EventBox" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added EventBox" />
+    <MESSAGE value="Added the rest of the piano images" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the rest of the piano images" />
   </component>
   <component name="WindowStateProjectService">
     <state x="369" y="74" width="1071" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604597402535">
@@ -193,9 +189,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="458" y="61" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1606089144169" />
-    <state x="590" y="154" key="Vcs.Push.Dialog.v2" timestamp="1606105738593">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="590" y="140" key="Vcs.Push.Dialog.v2" timestamp="1606188041081">
+      <screen x="0" y="0" width="1440" height="820" />
     </state>
+    <state x="590" y="140" key="Vcs.Push.Dialog.v2/0.0.1440.820@0.0.1440.820" timestamp="1606188041081" />
     <state x="590" y="154" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1606105738593" />
     <state x="655" y="189" key="run.anything.popup" timestamp="1606160777689">
       <screen x="0" y="0" width="1440" height="820" />

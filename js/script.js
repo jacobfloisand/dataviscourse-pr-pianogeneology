@@ -62,7 +62,8 @@ function piano(data, timeline, name) {
   let lineFn = d3.line()
     .y(d => pianoScaleX(d.x))
     .x(d => pianoScaleY(d.y))
-    .curve(d3.curveCatmullRom.alpha(1));
+    //.curve(d3.curveCatmullRom.alpha(1));
+    .curve(d3.curveLinear)
 
     //Check if the curve has already been drawn so we know if we need to create a new path or find an existing one.
     let curveSelection = d3.select('#curve').selectAll('path');

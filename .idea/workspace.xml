@@ -20,8 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d194dbe5-e964-4f76-91e5-f3ab5ac5eeca" name="Default Changelist" comment="Added the rest of the piano images">
-      <change afterPath="$PROJECT_DIR$/sounds/Clavicitherium.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sounds_trim/clavicitherium.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sounds/QuickTime Player_first.m4a" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,6 +72,7 @@
       <workItem from="1604604634489" duration="1452000" />
       <workItem from="1606075771812" duration="10951000" />
       <workItem from="1606160244180" duration="2992000" />
+      <workItem from="1606270185397" duration="997000" />
     </task>
     <task id="LOCAL-00001" summary="Added EventBox">
       <created>1606105735458</created>

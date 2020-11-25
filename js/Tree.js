@@ -193,6 +193,8 @@ class Tree {
             }).then(function(data) {
                 const result = data.find( ({ name }) => name === d.name );
                 let details = d3.select('.event-info').text(result.text);
+            }).catch(function(error){
+                d3.select('.event-info').text('');
             });
 
             // Instrument image

@@ -20,12 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d194dbe5-e964-4f76-91e5-f3ab5ac5eeca" name="Default Changelist" comment="Added the rest of the piano images">
-      <change afterPath="$PROJECT_DIR$/sounds/fortepiano.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sounds/uprightpanelsoff1mpair1.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sounds_trim/fortepiano (horizontal).mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sounds_trim/modern upright piano.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/fortepiano (horizontal).mp3" beforeDir="false" afterPath="$PROJECT_DIR$/sounds/fortepiano (horizontal).mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sounds/uprightpanelsoff1mpair1.mp3" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +75,9 @@
       <workItem from="1606270185397" duration="997000" />
       <workItem from="1606338114633" duration="597000" />
       <workItem from="1606347447596" duration="1952000" />
+      <workItem from="1606413624902" duration="393000" />
+      <workItem from="1606508835620" duration="52000" />
+      <workItem from="1606508920253" duration="513000" />
     </task>
     <task id="LOCAL-00001" summary="Added EventBox">
       <created>1606105735458</created>
@@ -127,6 +126,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="682" y="222" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.900@0.0.1440.900" timestamp="1606101084162" />
+    <state x="678" y="161" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1606508862552">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="678" y="161" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1440.900@0.0.1440.900" timestamp="1606508862552" />
     <state width="420" height="618" key="GridCell.Tab.0.bottom" timestamp="1606413247839">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

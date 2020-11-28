@@ -21,7 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d194dbe5-e964-4f76-91e5-f3ab5ac5eeca" name="Default Changelist" comment="Added the rest of the piano images">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sounds/uprightpanelsoff1mpair1.mp3" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +76,7 @@
       <workItem from="1606347447596" duration="1952000" />
       <workItem from="1606413624902" duration="393000" />
       <workItem from="1606508835620" duration="52000" />
-      <workItem from="1606508920253" duration="513000" />
+      <workItem from="1606508920253" duration="1230000" />
     </task>
     <task id="LOCAL-00001" summary="Added EventBox">
       <created>1606105735458</created>

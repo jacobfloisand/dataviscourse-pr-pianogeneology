@@ -155,3 +155,25 @@ line {
     height: 200px;
     padding: 5px;
 }
+
+/* div.tooltip {
+    position: absolute;
+    white-space: pre-line;
+    pointer-events: none;
+    visibility: visible;
+    background-color: White;
+    text-align: left;
+    padding: 5px 0;
+    display: block;
+    z-index: 1;
+    border: 0.5px solid black;
+} */
+
+.event-point.tooltip:hover {
+/* fill: red;
+    opacity: .6; */
+}
+
+#tooltip {
+    fill: red;
+}

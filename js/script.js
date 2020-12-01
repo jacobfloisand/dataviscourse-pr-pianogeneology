@@ -45,8 +45,8 @@ function piano(data, timeline, name) {
       .domain([1390, 2007])
       .range([0, 630]);
 
-      console.log('max is: ' + d3.max(data, d => d.y));
-      console.log('rounded is: ' + Math.ceil(d3.max(data, d => d.y)/1000)*1000);
+      // console.log('max is: ' + d3.max(data, d => d.y));
+      // console.log('rounded is: ' + Math.ceil(d3.max(data, d => d.y)/1000)*1000);
     let pianoScaleY = d3.scaleLinear()
       .domain([0, Math.ceil(d3.max(data, d => d.y)/10000)*10000])
       .range([170, 0]);
@@ -267,7 +267,7 @@ function piano(data, timeline, name) {
     .attr('width', 100)
     .attr('height', 100)
     .text(function (d) {
-      return d.ShortText;
+      return d.Year + ' - ' + d.Text;
     });
 
 }

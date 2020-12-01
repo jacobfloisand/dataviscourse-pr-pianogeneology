@@ -188,18 +188,22 @@ class Tree {
             let timeline = d3.csv('./data/timeline.csv', function(d) {
                 return {
                     name : d.Name,
-                    text: d.Text
+                    text: d.Text,
+                    Year: d.Year
                 };
             }).then(function(data) {
                 const result = data.find( ({ name }) => name === d.name );
-                let details = d3.select('.event-info').text(result.text);
+                let details = d3.select('.event-info').text(result.Year + ' - ' + result.text);
+                // d3.select('#event-rectangles').select('.text-rect').attr('stroke','red');
+
             }).catch(function(error){
                 d3.select('.event-info').text('');
             });
 
             // Instrument image
+            let tag = d.name == 'Player Piano' ? '.gif': '.jpg';
             let photo = d3.select('.event-image img')
-                .attr('src', './photos/'+ d.name +'.jpg');
+                .attr('src', './photos/'+ d.name + tag);
 
             // Instrument Audio
             let audio = d3.select('.event-audio audio').attr('src', './sounds_trim/'+ d.name +'.mp3');

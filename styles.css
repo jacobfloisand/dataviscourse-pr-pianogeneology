@@ -82,6 +82,9 @@ line {
     stroke: black;
     stroke-width: 2;
     opacity: 1;
+    position: absolute;
+    top: 40px;
+    left: 40px;
 }
 
 .salesCurve{
@@ -97,7 +100,8 @@ line {
 }
 
 .text-rect-hide{
-    opacity: 0;
+    /* opacity: 0; */
+    visibility: hidden;
 }
 
 .event-box {

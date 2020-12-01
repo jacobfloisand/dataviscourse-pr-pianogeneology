@@ -28,7 +28,7 @@ function piano(data, timeline, name) {
     .attr('height', 12)
     .classed('keys', true);
 
-  let blackkeys = [0, 1, 2, 4, 5, 7, 8, 9, 11, 12, 14, 15, 16, 18, 19, 21, 22, 23, 25, 26, 28, 29, 30, 
+  let blackkeys = [0, 1, 2, 4, 5, 7, 8, 9, 11, 12, 14, 15, 16, 18, 19, 21, 22, 23, 25, 26, 28, 29, 30,
     32, 33, 35, 36, 37, 39, 40, 42, 43, 44, 46, 47, 49, 50, 51];
 
   //Draw the black piano keys
@@ -80,7 +80,7 @@ function piano(data, timeline, name) {
       .attr('class', 'salesCurve')
       .attr('d', lineFn(data));
     }
-    
+
     //Create the tooltip container if it doesn't exist.
     if(d3.select('#tooltipParent').size() == 0){
       d3.select('body').append('div').attr('id', 'tooltipParent');
@@ -167,6 +167,7 @@ function piano(data, timeline, name) {
 
     //Get the event circles which are orange.
   let selection = d3.select('#timeline-viz').selectAll('circle').data(timeline);
+
   //Allows circles to come down from the top.
   let newCircles = selection.enter().append('circle')
     .attr('cy', -20)
@@ -199,12 +200,12 @@ function piano(data, timeline, name) {
     .duration(2000)
     .attr('cy', d => pianoScaleX(d.Year) + 5)
     .attr('cx', 180);
-    
+
       //Render the event mini text boxes.
       if(d3.select('#event-rectangles').size() == 0){
     let timelineEvents = d3.select('#timeline-viz').append('g').attr('id', 'event-rectangles').selectAll('g')
     .data(timeline).join('g');
-    
+
     timelineEvents.append('rect')
     .attr('y', 0)
     .attr('x', 220)
@@ -233,13 +234,13 @@ function piano(data, timeline, name) {
             return null;
           }})
       .call(wrap, 200);
-    
+
       //move timeline events into place
       timelineEvents.transition()
         .duration(2000)
         .attr('transform', d => 'translate(0, ' + (pianoScaleX(d.Year) - 10) + ')');
           }
-      
+
 
     if(data.length == 0){
       let selection = d3.select('#piano-viz').select('#no-data-text');
@@ -252,10 +253,22 @@ function piano(data, timeline, name) {
         .attr('x', 10)
         .style('font-size', 15)
         .attr('transform', 'translate(10,640)rotate(270)');
-      }      
+      }
     } else {
       d3.select('#no-data-text').remove();
     }
+
+
+  // Tooltip for the timeline circles
+  let lightOrangeCircles = d3.selectAll('.event-point')
+    .append("svg:title")
+    .attr('id', 'tooltip')
+    .attr('class', "tooltip")
+    .attr('width', 100)
+    .attr('height', 100)
+    .text(function (d) {
+      return d.ShortText;
+    });
 
 }
 
@@ -279,7 +292,7 @@ function wrap(text, width) {
           lineHeight = 1.1, // ems
           x = text.attr("x"),
           y = text.attr("y"),
-          dy = 0, 
+          dy = 0,
           tspan = text.text(null)
                       .append("tspan")
                       .attr("x", x)

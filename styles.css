@@ -42,10 +42,10 @@ span{
 	stroke: steelblue;
 }
 
-.tree-rect{
-    stroke: darkgray;
+/* .tree-rect{
+    stroke: steelblue;
     fill: lightsteelblue;
-}
+} */
 
 .tree-rect-select{
     stroke: darkgray;

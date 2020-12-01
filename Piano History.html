@@ -3,44 +3,20 @@
 
 <head>
     <meta charset="utf-8">
-    <title>History of the Piano</title>
+    <title>Piano Geneology</title>
 
     <script src="https://d3js.org/d3.v5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
     <link rel="stylesheet" href="styles.css" />
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <script src="js/Node.js" async></script>
-
-
-
 
 
 </head>
 
 <body>
 
-    <!-- audio files for the different instruments -->
-    <audio id="clavichord">
-        <source src="sounds_trim/Clavichord.mp3" />
-    </audio>
-    <audio id="electricpiano">
-        <source src="sounds_trim/electric_piano.mp3" />
-    </audio>
-    <audio id="harpsichord">
-        <source src="sounds_trim/harpsichord.mp3" />
-    </audio>
-    <audio id="monochord">
-        <source src="sounds_trim/monochord.mp3" />
-    </audio>
-    <audio id="psalterium">
-        <source src="sounds_trim/psalterium.mp3" />
-    </audio>
-    <audio id="moonlight">
-        <source src="sounds_trim/moonlight_sonata.mp3" />
-    </audio>
-    <!-- <audio id="piano" loop="loop" autoplay="autoplay">
-        <source src="sounds_trim/piano.m4a" />
-    </audio> -->
-    <audio src="sounds_trim/piano.m4a" autoplay></audio>
+    <!-- <audio src="sounds_trim/piano.m4a" autoplay></audio> -->
 
         <header>
 
@@ -52,7 +28,7 @@
                 <button id="music">Music</button>
             </div> -->
             <div class="title" style="text-align: center;">
-            <span class="title">PIANOS THROUGH HISTORY</span>
+            <span class="title">PIANO GENEOLOGY</span>
             </div>
         </header>
 
@@ -72,7 +48,7 @@
             <div id="event-audio" class="event-audio">
                 <audio id="audioElement"></audio>
                 <div>
-                    <button onclick="document.getElementById('audioElement').play()">&blacktriangleright;</button>
+                    <button onclick="document.getElementById('audioElement').play()"><i class='fas fa-volume-up'></i></button>
                 </div>
             </div>
         </div>
@@ -86,7 +62,6 @@
 </div>
     <script src="js/Tree.js" async></script>
     <script src="js/script.js"></script>
-    <script src="js/sounds.js"></script>
 
 
 </body>

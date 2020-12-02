@@ -6,9 +6,9 @@ This project guides the user through evolution of the piano. The piano-key timel
 
 Click on the Tree nodes to learn more about the instruments and hear an example of what it sounds like!
 
-![Viz](photos/piano_viz.png)
+![piano_viz](photos/piano_viz.png)
 
-File structer:
+File structure:
 
         Piano History.html
         styles.css

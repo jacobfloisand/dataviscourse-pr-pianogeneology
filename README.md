@@ -6,4 +6,25 @@ This project guides the user through evolution of the piano. The piano-key timel
 
 Click on the Tree nodes to learn more about the instruments and hear an example of what it sounds like!
 
-![Overview](figs/piano_viz.png)
+![Viz](photos/piano_viz.png)
+
+File structer:
+
+        Piano History.html
+        styles.css
+        
+        data/
+        	piano_sales.csv # Historical sales data for modern pianos.
+        	piano_history.json # Different piano instruments with ancestors.
+        	timeline.csv # Important historical events for piano-like instruments and related events.
+        phots/
+        	# figures / used in the description
+        	# used in event box to display each piano-like instrument
+        sounds/
+          # full audio files of the different instruments
+        sounds_trim/
+          # shortened audio files used for the actual visual
+        js/
+            script.js # Code for the piano keys, purchase history, and timeline events.
+            Node.js # Constructor for json data for tree visual
+            Tree.js # Code for the creation of the Tree as well as the event box related to the tree

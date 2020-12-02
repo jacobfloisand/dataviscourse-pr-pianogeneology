@@ -1,1 +1,3 @@
-# This is the final project for CS 5630 - University of Utah
+# CS 5630/6630 Final Project - University of Utah
+
+# Piano Geneology

@@ -206,7 +206,10 @@ class Tree {
                 .attr('src', './photos/'+ d.name + tag);
 
             // Instrument Audio
-            let audio = d3.select('.event-audio audio').attr('src', './sounds_trim/'+ d.name +'.mp3');
+            let audio = d.name === 'Polychord with bridge' || d.name === 'Polychord without bridge' ? 
+                document.getElementById('button').style.visibility = 'hidden' :
+                document.getElementById('button').style.visibility = 'visible';
+                d3.select('.event-audio audio').attr('src', './sounds_trim/'+ d.name +'.mp3');
         }
 
         g.on('click', onClick);

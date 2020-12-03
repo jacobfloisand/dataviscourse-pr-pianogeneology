@@ -10,7 +10,7 @@ Or, hover over the timeline events to learn more!
 
 ![piano_viz](photos/piano_viz.PNG)
 
-Linke to live website: https://jacobfloisand.github.io/
+Link to live website: https://jacobfloisand.github.io/
 
 File structure:
 

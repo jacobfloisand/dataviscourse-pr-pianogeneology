@@ -6,6 +6,8 @@ This project guides the user through evolution of the piano. The piano-key timel
 
 Click on the Tree nodes to learn more about the instruments and hear an example of what it sounds like!
 
+Or, hover over the timeline events to learn more!
+
 ![piano_viz](photos/piano_viz.PNG)
 
 Linke to live website: https://jacobfloisand.github.io/

@@ -33,5 +33,6 @@ File structure:
             Node.js # Constructor for json data for tree visual
             Tree.js # Code for the creation of the Tree as well as the event box related to the tree
 
-Project Screen-cast Demo:
+
 [![Piano Genealogy](http://img.youtube.com/vi/SQPISsX6Meo/0.jpg)](https://www.youtube.com/watch?v=SQPISsX6Meo "Piano Genealogy")
+Project Screen-cast Demo:

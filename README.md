@@ -8,6 +8,8 @@ Click on the Tree nodes to learn more about the instruments and hear an example 
 
 ![piano_viz](photos/piano_viz.PNG)
 
+Linke to live website: https://jacobfloisand.github.io/
+
 File structure:
 
         Piano History.html
